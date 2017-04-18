@@ -33,3 +33,5 @@ add wave -position end  sim:/testALU/Operation
 add wave -position end  sim:/testALU/FlagZ
 add wave -position end  sim:/testALU/BusC
 run -all
+# End time: 03:00:12 on Apr 19,2017, Elapsed time: 0:05:55
+# Errors: 0, Warnings: 0
