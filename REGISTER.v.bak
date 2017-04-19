@@ -1,0 +1,16 @@
+module REGISTER
+(
+    input CLOCK,
+    input LOAD,
+    input [15:0] DATAIN,
+    output reg [15:0] DATAOUT
+);
+
+    DATAOUT = 16'd99;
+    
+    always @ (posedge CLOCK)
+        begin
+            if(LOAD) d_out<=d_in; 
+        end
+
+endmodule  

@@ -1,0 +1,11 @@
+module INSTRUCTIONREGISTER
+(
+    input clk,
+    input load,
+    input [8:0] d_in,
+    output reg [8:0] d_out = 16'd99
+);
+    always @ (posedge clk)
+        if (load) d_out <= d_in;
+
+endmodule  

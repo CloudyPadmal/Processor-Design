@@ -10,36 +10,32 @@
 # Copying C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
 # Modifying modelsim.ini
 # 
-# vlog -vlog01compat -work work +incdir+F:/Work/FPGA/Processor-Design {F:/Work/FPGA/Processor-Design/UART.v}
+# vlog -vlog01compat -work work +incdir+F:/Work/FPGA/Processor-Design {F:/Work/FPGA/Processor-Design/IREGISTER.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 14:20:29 on Apr 19,2017
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+F:/Work/FPGA/Processor-Design" F:/Work/FPGA/Processor-Design/UART.v 
-# -- Compiling module UART
-# -- Compiling module Transmitter
-# -- Compiling module testTransmitter
-# -- Compiling module Receiver
-# -- Compiling module BaudSync
-# -- Compiling module testBaudSync
+# Start time: 01:11:33 on Apr 20,2017
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+F:/Work/FPGA/Processor-Design" F:/Work/FPGA/Processor-Design/IREGISTER.v 
+# -- Compiling module IREGISTER
+# -- Compiling module testIREGISTER
 # 
 # Top level modules:
-# 	UART
-# 	testTransmitter
-# 	Receiver
-# 	testBaudSync
-# End time: 14:20:29 on Apr 19,2017, Elapsed time: 0:00:00
+# 	testIREGISTER
+# End time: 01:11:33 on Apr 20,2017, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
-vsim work.testTransmitter
-# vsim work.testTransmitter 
-# Start time: 14:20:33 on Apr 19,2017
-# Loading work.testTransmitter
-# Loading work.BaudSync
-# Loading work.Transmitter
-add wave -position end  sim:/testTransmitter/TXSTART
-add wave -position end  sim:/testTransmitter/LINEIN
-add wave -position end  sim:/testTransmitter/TICK
-add wave -position end  sim:/testTransmitter/DATA
-add wave -position end  sim:/testTransmitter/BUSY
+vsim work.testIREGISTER
+# vsim work.testIREGISTER 
+# Start time: 01:11:43 on Apr 20,2017
+# Loading work.testIREGISTER
+# Loading work.IREGISTER
+add wave -position end  sim:/testIREGISTER/CLOCK
+add wave -position end  sim:/testIREGISTER/LOAD
+add wave -position end  sim:/testIREGISTER/INCREMENT
+add wave -position end  sim:/testIREGISTER/DATA
+add wave -position end  sim:/testIREGISTER/OUTPUT
 run -all
-# End time: 14:22:41 on Apr 19,2017, Elapsed time: 0:02:08
+# ** Note: $finish    : F:/Work/FPGA/Processor-Design/IREGISTER.v(66)
+#    Time: 50 ps  Iteration: 0  Instance: /testIREGISTER
+# 1
+# Break in Module testIREGISTER at F:/Work/FPGA/Processor-Design/IREGISTER.v line 66
+# End time: 01:12:50 on Apr 20,2017, Elapsed time: 0:01:07
 # Errors: 0, Warnings: 0

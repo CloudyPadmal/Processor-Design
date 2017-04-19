@@ -1,0 +1,33 @@
+module BUSBMUX
+(
+    bflag,
+    PC,
+    R1,
+    R2,
+    TR,
+    R,
+    AC,
+    DM,
+    IM,
+    b_bus
+);
+ input [2:0] bflag; 
+ input [15:0] PC,R1,R2,TR,R,AC; 
+ input [7:0] DM,IM; 
+ output reg [15:0] b_bus; 
+ always @(bflag or PC or R1 or R2 or TR or R or AC or DM or IM)  
+  begin 
+  case(bflag) 
+    
+   3'd0:b_bus=PC; 
+   3'd1:b_bus=R1; 
+   3'd2:b_bus=R2; 
+   3'd3:b_bus=TR; 
+   3'd4:b_bus=R; 
+   3'd5:b_bus=AC; 
+	3'd6:b_bus={8'b00000000,DM};
+   3'd7:b_bus={8'b00000000,IM}; 
+    
+  endcase 
+ end 
+endmodule 

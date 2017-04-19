@@ -16,77 +16,111 @@ endmodule
 module Transmitter
 (
     input CLOCK,
+    input RESET,
     input TXSTART,
+    input STICK,
     input [7:0] LINEIN,
     output DATA,
-    output BUSY
+    output reg DONE
 );
 
-    wire TICK;
+    localparam [1:0] IDLE = 2'b00;
+    localparam [1:0] STRT = 2'b01;
+    localparam [1:0] FETC = 2'b10;
+    localparam [1:0] STOP = 2'b11;
     
-    BaudSync BaudTicker(
-        .CLOCK(CLOCK), 
-        .ENABLE(BUSY), 
-        .TICK(TICK)
-    );
+    reg [1:0] STATE_REG, STATE_NEXT;
+    reg [3:0] S_REG, S_NEXT;
+    reg [2:0] N_REG, N_NEXT;
+    reg [7:0] B_REG, B_NEXT;
+    reg TX_REG, TX_NEXT;
     
-    reg [3:0] STATE = 4'b0000;
-    reg MUX;
-    wire READY = (STATE == 0);
-    assign BUSY = ~READY;
-    
-    reg [7:0] SHIFT = 8'b0000_0000;
-    
-    always @ (posedge CLOCK)
+    always @ (posedge CLOCK, posedge RESET)
+        if (RESET)
+            begin
+                STATE_REG <= IDLE;
+                S_REG <= 4'b0000;
+                N_REG <= 3'b000;
+                B_REG <= 8'b0000_0000;
+                TX_REG <= 1'b1;
+            end
+        else
+            begin
+                STATE_REG <= STATE_NEXT;
+                S_REG <= S_NEXT;
+                N_REG <= N_NEXT;
+                B_REG <= B_NEXT;
+                TX_REG <= TX_NEXT;
+            end
+            
+    always @ (*)
         begin
-            if (READY & TXSTART) SHIFT <= LINEIN;
-            else if (STATE[3] & TICK) SHIFT <= (SHIFT >> 1);
-
-            case(STATE)
-                4'b0000: 
-                    if(TXSTART) STATE <= 4'b0100;
-                4'b0100:
-                    if(TICK) STATE <= 4'b1000;  // START
-                4'b1000:
-                    if(TICK) STATE <= 4'b1001;  // BIT 0
-                4'b1001:
-                    if(TICK) STATE <= 4'b1010;  // BIT 1
-                4'b1010:
-                    if(TICK) STATE <= 4'b1011;  // BIT 2
-                4'b1011:
-                    if(TICK) STATE <= 4'b1100;  // BIT 3
-                4'b1100:
-                    if(TICK) STATE <= 4'b1101;  // BIT 4
-                4'b1101:
-                    if(TICK) STATE <= 4'b1110;  // BIT 5
-                4'b1110:
-                    if(TICK) STATE <= 4'b1111;  // BIT 6
-                4'b1111:
-                    if(TICK) STATE <= 4'b0010;  // BIT 7
-                4'b0010:
-                    if(TICK) STATE <= 4'b0011;  // STOP1
-                4'b0011:
-                    if(TICK) STATE <= 4'b0000;  // STOP2
-                default:
-                    if(TICK) STATE <= 4'b0000;
+            STATE_NEXT = STATE_REG;
+            DONE = 1'b0;
+            S_NEXT = S_REG;
+            N_NEXT = N_REG;
+            B_NEXT = B_REG;
+            TX_NEXT = TX_REG;
+            
+            case (STATE_REG)
+                IDLE:
+                    begin
+                        TX_NEXT = 1'b1;
+                        if (TXSTART)
+                            begin
+                                STATE_NEXT = STRT;
+                                S_NEXT = 4'b0000;
+                                B_NEXT = LINEIN;
+                            end
+                    end
+                    
+                STRT:
+                    begin
+                        TX_NEXT = 1'b0;
+                        if (STICK)
+                            if (S_REG == 15)
+                                begin
+                                    STATE_NEXT = FETC;
+                                    S_NEXT = 4'b0000;
+                                    N_NEXT = 3'b000;
+                                end
+                            else
+                                S_NEXT = S_REG + 4'b0001;
+                    end
+                    
+                FETC:
+                    begin
+                        TX_NEXT = B_REG[0];
+                        if (STICK)
+                            if (S_REG == 15)
+                                begin
+                                    S_NEXT = 4'b0000;
+                                    B_NEXT = B_REG >> 1;
+                                    if (N_REG == 7) STATE_NEXT = STOP;
+                                    else N_NEXT = N_REG + 3'b001;                                        
+                                end
+                            else
+                                S_NEXT = S_REG + 4'b0001;
+                    end
+                    
+                STOP:
+                    begin
+                        TX_NEXT = 1'b1;
+                        if (STICK)
+                            if (S_REG == 15)
+                                begin
+                                    STATE_NEXT = IDLE;
+                                    DONE = 1'b1;
+                                end
+                            else
+                                S_NEXT = S_REG + 4'b0001;
+                    end
+                    
             endcase
+            
         end
-    
-
-    always @ (STATE[2:0])
-        case(STATE[2:0])
-            0: MUX <= LINEIN[0];
-            1: MUX <= LINEIN[1];
-            2: MUX <= LINEIN[2];
-            3: MUX <= LINEIN[3];
-            4: MUX <= LINEIN[4];
-            5: MUX <= LINEIN[5];
-            6: MUX <= LINEIN[6];
-            7: MUX <= LINEIN[7];
-        endcase
-
-    // START + DATA + STOP
-    assign DATA = (STATE < 4) | (STATE[3] & MUX);
+        
+    assign DATA = TX_REG;
     
 endmodule
 
@@ -97,10 +131,11 @@ module testTransmitter;
 
     reg PULSE;
     reg ENABLE;
+    reg RESET;
     reg TXSTART;
     reg [7:0] LINEIN;
-    wire TICK, DATA, BUSY;
-
+    wire TICK, DATA, DONE;
+    
     // Clock for simulation purposes
     initial begin
         // Initiate clock_pulse reg value
@@ -115,6 +150,7 @@ module testTransmitter;
         // Enable the baud generator
         ENABLE = 1'b1;
         TXSTART = 1'b0;
+        RESET = 1'b1;
     end
     
     BaudSync UUT(
@@ -125,17 +161,20 @@ module testTransmitter;
     
     Transmitter VVT(
         .CLOCK(TICK),
+        .RESET(RESET),
         .TXSTART(TXSTART),
         .LINEIN(LINEIN),
         .DATA(DATA),
-        .BUSY(BUSY)
+        .DONE(DONE),
+        .STICK(TICK)
     );
     
     // Test
     initial begin
         @ (posedge TICK);
             LINEIN = 8'b1011_0110;
-            TXSTART = 1'b1;        
+            TXSTART = 1'b1;
+            RESET = 1'b0;
     end
 
 endmodule
@@ -144,99 +183,95 @@ endmodule
 /******************************* UART Receiver *******************************/
 /*****************************************************************************/
 module Receiver (
-	input clk,
-	input RxD,
-	output reg RxD_data_ready = 0,
-	output reg [7:0] RxD_data = 0,  // data received, valid only (for one clock cycle) when RxD_data_ready is asserted
-
-	// We also detect if a gap occurs in the received stream of characters
-	// That can be useful if multiple characters are sent in burst
-	//  so that multiple characters can be treated as a "packet"
-	output RxD_idle,  // asserted when no data has been received for a while
-	output reg RxD_endofpacket = 0  // asserted for one clock cycle when a packet has been detected (i.e. RxD_idle is going high)
+	input CLOCK, RESET,
+    input rx, s_tick,
+    output reg rx_done_tick,
+    output [7:0] dout
 );
 
-parameter Oversampling = 8;  // needs to be a power of 2
-// we oversample the RxD line at a fixed rate to capture each RxD data bit at the "right" time
-// 8 times oversampling by default, use 16 for higher quality reception
-
-
-////////////////////////////////
-reg [3:0] RxD_state = 0;
-
-`ifdef SIMULATION
-wire RxD_bit = RxD;
-wire sampleNow = 1'b1;  // receive one bit per clock cycle
-
-`else
-wire OversamplingTick;
-BaudSync #(Oversampling) tickgen(.clk(clk), .enable(1'b1), .tick(OversamplingTick));
-
-// synchronize RxD to our clk domain
-reg [1:0] RxD_sync = 2'b11;
-always @(posedge clk) if(OversamplingTick) RxD_sync <= {RxD_sync[0], RxD};
-
-// and filter it
-reg [1:0] Filter_cnt = 2'b11;
-reg RxD_bit = 1'b1;
-
-always @(posedge clk)
-if(OversamplingTick)
-begin
-	if(RxD_sync[1]==1'b1 && Filter_cnt!=2'b11) Filter_cnt <= Filter_cnt + 1'd1;
-	else 
-	if(RxD_sync[1]==1'b0 && Filter_cnt!=2'b00) Filter_cnt <= Filter_cnt - 1'd1;
-
-	if(Filter_cnt==2'b11) RxD_bit <= 1'b1;
-	else
-	if(Filter_cnt==2'b00) RxD_bit <= 1'b0;
-end
-
-// and decide when is the good time to sample the RxD line
-function integer log2(input integer v); begin log2=0; while(v>>log2) log2=log2+1; end endfunction
-localparam l2o = log2(Oversampling);
-reg [l2o-2:0] OversamplingCnt = 0;
-always @(posedge clk) if(OversamplingTick) OversamplingCnt <= (RxD_state==0) ? 1'd0 : OversamplingCnt + 1'd1;
-wire sampleNow = OversamplingTick && (OversamplingCnt==Oversampling/2-1);
-`endif
-
-// now we can accumulate the RxD bits in a shift-register
-always @(posedge clk)
-case(RxD_state)
-	4'b0000: if(~RxD_bit) RxD_state <= `ifdef SIMULATION 4'b1000 `else 4'b0001 `endif;  // start bit found?
-	4'b0001: if(sampleNow) RxD_state <= 4'b1000;  // sync start bit to sampleNow
-	4'b1000: if(sampleNow) RxD_state <= 4'b1001;  // bit 0
-	4'b1001: if(sampleNow) RxD_state <= 4'b1010;  // bit 1
-	4'b1010: if(sampleNow) RxD_state <= 4'b1011;  // bit 2
-	4'b1011: if(sampleNow) RxD_state <= 4'b1100;  // bit 3
-	4'b1100: if(sampleNow) RxD_state <= 4'b1101;  // bit 4
-	4'b1101: if(sampleNow) RxD_state <= 4'b1110;  // bit 5
-	4'b1110: if(sampleNow) RxD_state <= 4'b1111;  // bit 6
-	4'b1111: if(sampleNow) RxD_state <= 4'b0010;  // bit 7
-	4'b0010: if(sampleNow) RxD_state <= 4'b0000;  // stop bit
-	default: RxD_state <= 4'b0000;
-endcase
-
-always @(posedge clk)
-if(sampleNow && RxD_state[3]) RxD_data <= {RxD_bit, RxD_data[7:1]};
-
-//reg RxD_data_error = 0;
-always @(posedge clk)
-begin
-	RxD_data_ready <= (sampleNow && RxD_state==4'b0010 && RxD_bit);  // make sure a stop bit is received
-	//RxD_data_error <= (sampleNow && RxD_state==4'b0010 && ~RxD_bit);  // error if a stop bit is not received
-end
-
-`ifdef SIMULATION
-assign RxD_idle = 0;
-`else
-reg [l2o+1:0] GapCnt = 0;
-always @(posedge clk) if (RxD_state!=0) GapCnt<=0; else if(OversamplingTick & ~GapCnt[log2(Oversampling)+1]) GapCnt <= GapCnt + 1'h1;
-assign RxD_idle = GapCnt[l2o+1];
-always @(posedge clk) RxD_endofpacket <= OversamplingTick & ~GapCnt[l2o+1] & &GapCnt[l2o:0];
-`endif
-
-endmodule
+    localparam [1:0] idle = 2'b00;
+    localparam [1:0] start = 2'b01; 
+    localparam [1:0] data = 2'b10; 
+    localparam [1:0] stop = 2'b11;
+   
+    reg [1:0] state_reg, state_next;
+    reg [3:0] s_reg, s_next;
+    reg [2:0] n_reg, n_next;
+    reg [7:0] b_reg, b_next;
+    
+    always @ (posedge CLOCK, posedge RESET)
+        if(RESET) 
+            begin 
+                state_reg<= idle;
+                s_reg<= 0;
+                n_reg<= 0;
+                b_reg<= 0;
+            end 
+        else 
+            begin 
+                state_reg<= state_next;
+                s_reg<= s_next;
+                n_reg<= n_next;
+                b_reg<= b_next;
+            end
+    
+    always @ (*)
+        begin 
+            state_next = state_reg; 
+            rx_done_tick = 1'b0; 
+            s_next = s_reg; 
+            n_next = n_reg; 
+            b_next = b_reg; 
+            
+            case (state_reg) 
+                idle: 
+                    if (~rx) 
+                        begin 
+                            state_next = start; 
+                            s_next = 0; 
+                        end 
+                
+                start: 
+                    if (s_tick) 
+                        if(s_reg == 7) 
+                            begin 
+                                state_next = data; 
+                                s_next = 0; 
+                                n_next = 0; 
+                            end 
+                    else 
+                        s_next = s_reg + 1'b1; 
+                    
+                data: 
+                    if (s_tick) 
+                        if (s_reg == 15) 
+                        begin 
+                            s_next = 0; 
+                            b_next = {rx, b_reg[7:1]}; 
+                            if (n_reg == (7)) 
+                                state_next = stop; 
+                            else 
+                                n_next = n_reg + 1'b1; 
+                        end 
+                    else 
+                        s_next = s_reg + 1'b1; 
+                
+                stop:
+                    if (s_tick) 
+                        if (s_reg == (15)) 
+                            begin 
+                                state_next = idle; 
+                                rx_done_tick = 1'b1; 
+                            end 
+                    else
+                        s_next = s_reg + 1'b1; 
+            
+            endcase 
+        end 
+        
+        assign dout = b_reg;
+        
+endmodule 
 
 /*****************************************************************************/
 /************************** Baud Rate Synchronizer ***************************/
