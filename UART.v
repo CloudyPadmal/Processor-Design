@@ -18,7 +18,7 @@ module Transmitter
     input CLOCK,
     input RESET,
     input TXSTART,
-    input STICK,
+    input TICK,
     input [7:0] LINEIN,
     output DATA,
     output reg DONE
@@ -30,7 +30,6 @@ module Transmitter
     localparam [1:0] STOP = 2'b11;
     
     reg [1:0] STATE_REG, STATE_NEXT;
-    reg [3:0] S_REG, S_NEXT;
     reg [2:0] N_REG, N_NEXT;
     reg [7:0] B_REG, B_NEXT;
     reg TX_REG, TX_NEXT;
@@ -39,7 +38,6 @@ module Transmitter
         if (RESET)
             begin
                 STATE_REG <= IDLE;
-                S_REG <= 4'b0000;
                 N_REG <= 3'b000;
                 B_REG <= 8'b0000_0000;
                 TX_REG <= 1'b1;
@@ -47,7 +45,6 @@ module Transmitter
         else
             begin
                 STATE_REG <= STATE_NEXT;
-                S_REG <= S_NEXT;
                 N_REG <= N_NEXT;
                 B_REG <= B_NEXT;
                 TX_REG <= TX_NEXT;
@@ -57,7 +54,6 @@ module Transmitter
         begin
             STATE_NEXT = STATE_REG;
             DONE = 1'b0;
-            S_NEXT = S_REG;
             N_NEXT = N_REG;
             B_NEXT = B_REG;
             TX_NEXT = TX_REG;
@@ -69,7 +65,6 @@ module Transmitter
                         if (TXSTART)
                             begin
                                 STATE_NEXT = STRT;
-                                S_NEXT = 4'b0000;
                                 B_NEXT = LINEIN;
                             end
                     end
@@ -77,43 +72,32 @@ module Transmitter
                 STRT:
                     begin
                         TX_NEXT = 1'b0;
-                        if (STICK)
-                            if (S_REG == 15)
-                                begin
-                                    STATE_NEXT = FETC;
-                                    S_NEXT = 4'b0000;
-                                    N_NEXT = 3'b000;
-                                end
-                            else
-                                S_NEXT = S_REG + 4'b0001;
+                        if (TICK)
+                            begin
+                                STATE_NEXT = FETC;
+                                N_NEXT = 3'b000;
+                            end
                     end
                     
                 FETC:
                     begin
                         TX_NEXT = B_REG[0];
-                        if (STICK)
-                            if (S_REG == 15)
-                                begin
-                                    S_NEXT = 4'b0000;
-                                    B_NEXT = B_REG >> 1;
-                                    if (N_REG == 7) STATE_NEXT = STOP;
-                                    else N_NEXT = N_REG + 3'b001;                                        
-                                end
-                            else
-                                S_NEXT = S_REG + 4'b0001;
+                        if (TICK)
+                            begin
+                                B_NEXT = B_REG >> 1;
+                                if (N_REG == 7) STATE_NEXT = STOP;
+                                else N_NEXT = N_REG + 3'b001;
+                            end
                     end
                     
                 STOP:
                     begin
                         TX_NEXT = 1'b1;
-                        if (STICK)
-                            if (S_REG == 15)
-                                begin
-                                    STATE_NEXT = IDLE;
-                                    DONE = 1'b1;
-                                end
-                            else
-                                S_NEXT = S_REG + 4'b0001;
+                        if (TICK)
+                            begin
+                                STATE_NEXT = IDLE;
+                                DONE = 1'b1;
+                            end
                     end
                     
             endcase
@@ -160,13 +144,13 @@ module testTransmitter;
     );
     
     Transmitter VVT(
-        .CLOCK(TICK),
+        .CLOCK(PULSE),
         .RESET(RESET),
         .TXSTART(TXSTART),
         .LINEIN(LINEIN),
         .DATA(DATA),
         .DONE(DONE),
-        .STICK(TICK)
+        .TICK(TICK)
     );
     
     // Test
@@ -175,6 +159,12 @@ module testTransmitter;
             LINEIN = 8'b1011_0110;
             TXSTART = 1'b1;
             RESET = 1'b0;
+        repeat(10) @(posedge TICK);
+            LINEIN = 8'b1010_0010;
+            TXSTART = 1'b1;
+            RESET = 1'b0;
+        repeat(10) @(posedge TICK);
+            $finish;
     end
 
 endmodule

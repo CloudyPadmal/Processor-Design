@@ -5,5 +5,5 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
-vlog -vlog01compat -work work +incdir+F:/Work/FPGA/Processor-Design {F:/Work/FPGA/Processor-Design/IREGISTER.v}
+vlog -vlog01compat -work work +incdir+F:/Work/FPGA/Processor-Design {F:/Work/FPGA/Processor-Design/UART.v}
 
