@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DownSampler
-Wed Apr 19 08:18:53 2017
+Wed Apr 19 14:20:21 2017
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -43,7 +43,7 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Apr 19 08:18:53 2017       ;
+; Analysis & Synthesis Status        ; Successful - Wed Apr 19 14:20:21 2017       ;
 ; Quartus Prime Version              ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                      ; DownSampler                                 ;
 ; Top-level Entity Name              ; UART                                        ;
@@ -257,7 +257,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Wed Apr 19 08:18:41 2017
+    Info: Processing started: Wed Apr 19 14:20:09 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DownSampler -c DownSampler
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -266,12 +266,13 @@ Info (12021): Found 2 design units, including 2 entities, in source file alu.v
     Info (12023): Found entity 2: testALU File: F:/Work/FPGA/Processor-Design/ALU.v Line: 85
 Info (12021): Found 1 design units, including 1 entities, in source file dram.v
     Info (12023): Found entity 1: DRAM File: F:/Work/FPGA/Processor-Design/DRAM.v Line: 40
-Info (12021): Found 5 design units, including 5 entities, in source file uart.v
+Info (12021): Found 6 design units, including 6 entities, in source file uart.v
     Info (12023): Found entity 1: UART File: F:/Work/FPGA/Processor-Design/UART.v Line: 1
-    Info (12023): Found entity 2: BaudSync File: F:/Work/FPGA/Processor-Design/UART.v Line: 17
-    Info (12023): Found entity 3: Transmitter File: F:/Work/FPGA/Processor-Design/UART.v Line: 42
-    Info (12023): Found entity 4: Receiver File: F:/Work/FPGA/Processor-Design/UART.v Line: 58
-    Info (12023): Found entity 5: testUART File: F:/Work/FPGA/Processor-Design/UART.v Line: 75
+    Info (12023): Found entity 2: Transmitter File: F:/Work/FPGA/Processor-Design/UART.v Line: 16
+    Info (12023): Found entity 3: testTransmitter File: F:/Work/FPGA/Processor-Design/UART.v Line: 96
+    Info (12023): Found entity 4: Receiver File: F:/Work/FPGA/Processor-Design/UART.v Line: 146
+    Info (12023): Found entity 5: BaudSync File: F:/Work/FPGA/Processor-Design/UART.v Line: 244
+    Info (12023): Found entity 6: testBaudSync File: F:/Work/FPGA/Processor-Design/UART.v Line: 285
 Info (12127): Elaborating entity "UART" for the top level hierarchy
 Warning (10034): Output port "TX" at UART.v(6) has no driver File: F:/Work/FPGA/Processor-Design/UART.v Line: 6
 Warning (12158): Entity "UART" contains only dangling pins
@@ -286,9 +287,9 @@ Info (21057): Implemented 3 device resources after synthesis - the final resourc
     Info (21058): Implemented 2 input pins
     Info (21059): Implemented 1 output pins
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 8 warnings
-    Info: Peak virtual memory: 586 megabytes
-    Info: Processing ended: Wed Apr 19 08:18:53 2017
+    Info: Peak virtual memory: 587 megabytes
+    Info: Processing ended: Wed Apr 19 14:20:21 2017
     Info: Elapsed time: 00:00:12
-    Info: Total CPU time (on all processors): 00:00:27
+    Info: Total CPU time (on all processors): 00:00:28
 
 

@@ -9,21 +9,21 @@ z2
 cModel Technology
 Z0 dF:/Work/FPGA/Processor-Design/simulation/modelsim
 vBaudSync
-Z1 !s110 1492570140
+Z1 !s110 1492591829
 !i10b 1
-!s100 IcBYi^PInn[D4k87RlDiQ1
-I0SXCaBV?;6IB0`fDbCA5H0
+!s100 ><eFFh`>cnSfK9EAeGmV22
+IaWged=4`fFc;0U2cI6gGe0
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-Z3 w1492570117
+Z3 w1492591805
 Z4 8F:/Work/FPGA/Processor-Design/UART.v
 Z5 FF:/Work/FPGA/Processor-Design/UART.v
-L0 17
+L0 244
 Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1492570140.000000
+Z7 !s108 1492591829.000000
 Z8 !s107 F:/Work/FPGA/Processor-Design/UART.v|
 Z9 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Work/FPGA/Processor-Design|F:/Work/FPGA/Processor-Design/UART.v|
 !i113 1
@@ -34,14 +34,14 @@ n@baud@sync
 vReceiver
 R1
 !i10b 1
-!s100 1@Fz7o214_JQ1lKUiDgLf3
-I30ngcdOG9_:c2XdiZN`?b3
+!s100 <P?_CWlk2B=5oO@0B@dbk3
+IheDcXDk`VdHV24[kN`CZC0
 R2
 R0
 R3
 R4
 R5
-L0 58
+L0 146
 R6
 r1
 !s85 0
@@ -54,17 +54,17 @@ R10
 R11
 R12
 n@receiver
-vtestUART
+vtestBaudSync
 R1
 !i10b 1
-!s100 LWRC8zD7OAa4ES6[f^L:b2
-IHQz_>58JHG>cNXb__l<4P0
+!s100 X:M?kem[nMNJz]3SA8S=k2
+IGF4ohkM3_`<daZ=O;Q=`11
 R2
 R0
 R3
 R4
 R5
-L0 75
+L0 285
 R6
 r1
 !s85 0
@@ -76,18 +76,41 @@ R9
 R10
 R11
 R12
-ntest@u@a@r@t
-vTransmitter
+ntest@baud@sync
+vtestTransmitter
 R1
 !i10b 1
-!s100 P:SW8ZM;0P3BJf=[cj?Kg2
-Ij]ibfm8[@oNGf;CKdS8@:3
+!s100 LB;UWYHelT:UKc57M6^;T0
+I;`ZRRoSSCL8M8ad8M3G5?3
 R2
 R0
 R3
 R4
 R5
-L0 42
+L0 96
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+R12
+ntest@transmitter
+vTransmitter
+R1
+!i10b 1
+!s100 256k]l9k25OJ;`6Y:JhY52
+Ie`R94R:j<2LHQ[zL:nWPE1
+R2
+R0
+R3
+R4
+R5
+L0 16
 R6
 r1
 !s85 0
