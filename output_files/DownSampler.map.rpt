@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DownSampler
-Wed Apr 19 03:33:58 2017
+Wed Apr 19 08:18:53 2017
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -14,11 +14,9 @@ Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. General Register Statistics
-  9. Multiplexer Restructuring Statistics (Restructuring Performed)
- 10. Parameter Settings for User Entity Instance: Top-level Entity: |ALU
- 11. Post-Synthesis Netlist Statistics for Top Partition
- 12. Elapsed Time Per Partition
- 13. Analysis & Synthesis Messages
+  9. Post-Synthesis Netlist Statistics for Top Partition
+ 10. Elapsed Time Per Partition
+ 11. Analysis & Synthesis Messages
 
 
 
@@ -45,16 +43,16 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Apr 19 03:33:58 2017       ;
+; Analysis & Synthesis Status        ; Successful - Wed Apr 19 08:18:53 2017       ;
 ; Quartus Prime Version              ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                      ; DownSampler                                 ;
-; Top-level Entity Name              ; ALU                                         ;
+; Top-level Entity Name              ; UART                                        ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 92                                          ;
-;     Total combinational functions  ; 92                                          ;
+; Total logic elements               ; 0                                           ;
+;     Total combinational functions  ; 0                                           ;
 ;     Dedicated logic registers      ; 0                                           ;
 ; Total registers                    ; 0                                           ;
-; Total pins                         ; 52                                          ;
+; Total pins                         ; 3                                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -68,7 +66,7 @@ agreement for further details.
 ; Option                                                                     ; Setting            ; Default Value      ;
 +----------------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                                     ; EP4CE115F29C7      ;                    ;
-; Top-level entity name                                                      ; ALU                ; DownSampler        ;
+; Top-level entity name                                                      ; UART               ; DownSampler        ;
 ; Family name                                                                ; Cyclone IV E       ; Cyclone V          ;
 ; Use smart compilation                                                      ; Off                ; Off                ;
 ; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
@@ -164,45 +162,44 @@ agreement for further details.
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                      ;
-+----------------------------------+-----------------+------------------------+-------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path        ; Library ;
-+----------------------------------+-----------------+------------------------+-------------------------------------+---------+
-; ALU.v                            ; yes             ; User Verilog HDL File  ; F:/Work/FPGA/Processor-Design/ALU.v ;         ;
-+----------------------------------+-----------------+------------------------+-------------------------------------+---------+
++------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                       ;
++----------------------------------+-----------------+------------------------+--------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path         ; Library ;
++----------------------------------+-----------------+------------------------+--------------------------------------+---------+
+; UART.v                           ; yes             ; User Verilog HDL File  ; F:/Work/FPGA/Processor-Design/UART.v ;         ;
++----------------------------------+-----------------+------------------------+--------------------------------------+---------+
 
 
-+------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                      ;
-+---------------------------------------------+--------------------+
-; Resource                                    ; Usage              ;
-+---------------------------------------------+--------------------+
-; Estimated Total logic elements              ; 92                 ;
-;                                             ;                    ;
-; Total combinational functions               ; 92                 ;
-; Logic element usage by number of LUT inputs ;                    ;
-;     -- 4 input functions                    ; 38                 ;
-;     -- 3 input functions                    ; 20                 ;
-;     -- <=2 input functions                  ; 34                 ;
-;                                             ;                    ;
-; Logic elements by mode                      ;                    ;
-;     -- normal mode                          ; 76                 ;
-;     -- arithmetic mode                      ; 16                 ;
-;                                             ;                    ;
-; Total registers                             ; 0                  ;
-;     -- Dedicated logic registers            ; 0                  ;
-;     -- I/O registers                        ; 0                  ;
-;                                             ;                    ;
-; I/O pins                                    ; 52                 ;
-;                                             ;                    ;
-; Embedded Multiplier 9-bit elements          ; 0                  ;
-;                                             ;                    ;
-; Maximum fan-out node                        ; Operation[0]~input ;
-; Maximum fan-out                             ; 29                 ;
-; Total fan-out                               ; 349                ;
-; Average fan-out                             ; 1.78               ;
-+---------------------------------------------+--------------------+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+;                                             ;       ;
+; Total combinational functions               ; 0     ;
+; Logic element usage by number of LUT inputs ;       ;
+;     -- 4 input functions                    ; 0     ;
+;     -- 3 input functions                    ; 0     ;
+;     -- <=2 input functions                  ; 0     ;
+;                                             ;       ;
+; Logic elements by mode                      ;       ;
+;     -- normal mode                          ; 0     ;
+;     -- arithmetic mode                      ; 0     ;
+;                                             ;       ;
+; Total registers                             ; 0     ;
+;     -- Dedicated logic registers            ; 0     ;
+;     -- I/O registers                        ; 0     ;
+;                                             ;       ;
+; I/O pins                                    ; 3     ;
+;                                             ;       ;
+; Embedded Multiplier 9-bit elements          ; 0     ;
+;                                             ;       ;
+; Maximum fan-out node                        ; RX    ;
+; Maximum fan-out                             ; 1     ;
+; Total fan-out                               ; 3     ;
+; Average fan-out                             ; 0.50  ;
++---------------------------------------------+-------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -210,7 +207,7 @@ agreement for further details.
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
-; |ALU                       ; 92 (92)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 52   ; 0            ; |ALU                ; ALU         ; work         ;
+; |UART                      ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 3    ; 0            ; |UART               ; UART        ; work         ;
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -230,49 +227,18 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; 6:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |ALU|Mux15                 ;
-; 6:1                ; 10 bits   ; 40 LEs        ; 20 LEs               ; 20 LEs                 ; No         ; |ALU|Mux3                  ;
-; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |ALU|Mux1                  ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-
-
-+---------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: Top-level Entity: |ALU ;
-+----------------+-------+--------------------------------------------+
-; Parameter Name ; Value ; Type                                       ;
-+----------------+-------+--------------------------------------------+
-; ADDITION       ; 100   ; Unsigned Binary                            ;
-; SUBSTRACT      ; 101   ; Unsigned Binary                            ;
-; MULTIPLY       ; 110   ; Unsigned Binary                            ;
-; DIVISION       ; 111   ; Unsigned Binary                            ;
-; RESETCBUS      ; 000   ; Unsigned Binary                            ;
-; GOTHROUGH      ; 001   ; Unsigned Binary                            ;
-+----------------+-------+--------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 52                          ;
-; cycloneiii_lcell_comb ; 92                          ;
-;     arith             ; 16                          ;
-;         2 data inputs ; 1                           ;
-;         3 data inputs ; 15                          ;
-;     normal            ; 76                          ;
-;         2 data inputs ; 33                          ;
-;         3 data inputs ; 5                           ;
-;         4 data inputs ; 38                          ;
+; boundary_port         ; 3                           ;
+; cycloneiii_lcell_comb ; 1                           ;
+;     normal            ; 1                           ;
+;         0 data inputs ; 1                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 5.40                        ;
-; Average LUT depth     ; 4.07                        ;
+; Max LUT depth         ; 0.00                        ;
+; Average LUT depth     ; 0.00                        ;
 +-----------------------+-----------------------------+
 
 
@@ -291,27 +257,38 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Wed Apr 19 03:33:42 2017
+    Info: Processing started: Wed Apr 19 08:18:41 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DownSampler -c DownSampler
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
 Info (12021): Found 2 design units, including 2 entities, in source file alu.v
     Info (12023): Found entity 1: ALU File: F:/Work/FPGA/Processor-Design/ALU.v Line: 1
-    Info (12023): Found entity 2: testALU File: F:/Work/FPGA/Processor-Design/ALU.v Line: 71
+    Info (12023): Found entity 2: testALU File: F:/Work/FPGA/Processor-Design/ALU.v Line: 85
 Info (12021): Found 1 design units, including 1 entities, in source file dram.v
     Info (12023): Found entity 1: DRAM File: F:/Work/FPGA/Processor-Design/DRAM.v Line: 40
-Info (12127): Elaborating entity "ALU" for the top level hierarchy
-Info (286030): Timing-Driven Synthesis is running
+Info (12021): Found 5 design units, including 5 entities, in source file uart.v
+    Info (12023): Found entity 1: UART File: F:/Work/FPGA/Processor-Design/UART.v Line: 1
+    Info (12023): Found entity 2: BaudSync File: F:/Work/FPGA/Processor-Design/UART.v Line: 17
+    Info (12023): Found entity 3: Transmitter File: F:/Work/FPGA/Processor-Design/UART.v Line: 42
+    Info (12023): Found entity 4: Receiver File: F:/Work/FPGA/Processor-Design/UART.v Line: 58
+    Info (12023): Found entity 5: testUART File: F:/Work/FPGA/Processor-Design/UART.v Line: 75
+Info (12127): Elaborating entity "UART" for the top level hierarchy
+Warning (10034): Output port "TX" at UART.v(6) has no driver File: F:/Work/FPGA/Processor-Design/UART.v Line: 6
+Warning (12158): Entity "UART" contains only dangling pins
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "TX" is stuck at GND File: F:/Work/FPGA/Processor-Design/UART.v Line: 6
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 144 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 35 input pins
-    Info (21059): Implemented 17 output pins
-    Info (21061): Implemented 92 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 591 megabytes
-    Info: Processing ended: Wed Apr 19 03:33:58 2017
-    Info: Elapsed time: 00:00:16
-    Info: Total CPU time (on all processors): 00:00:32
+Warning (21074): Design contains 2 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "RX" File: F:/Work/FPGA/Processor-Design/UART.v Line: 3
+    Warning (15610): No output dependent on input pin "CLOCK" File: F:/Work/FPGA/Processor-Design/UART.v Line: 4
+Info (21057): Implemented 3 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 2 input pins
+    Info (21059): Implemented 1 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 8 warnings
+    Info: Peak virtual memory: 586 megabytes
+    Info: Processing ended: Wed Apr 19 08:18:53 2017
+    Info: Elapsed time: 00:00:12
+    Info: Total CPU time (on all processors): 00:00:27
 
 

@@ -8,40 +8,40 @@ z2
 !i10f 100
 cModel Technology
 Z0 dF:/Work/FPGA/Processor-Design/simulation/modelsim
-vALU
-Z1 !s110 1492550653
+vBaudSync
+Z1 !s110 1492570140
 !i10b 1
-!s100 Zo21fn9S;F?SlI1[imW>a3
-IS4FgOI`FmR81EJI]@4<M93
+!s100 IcBYi^PInn[D4k87RlDiQ1
+I0SXCaBV?;6IB0`fDbCA5H0
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-Z3 w1492550607
-Z4 8F:/Work/FPGA/Processor-Design/ALU.v
-Z5 FF:/Work/FPGA/Processor-Design/ALU.v
-L0 1
+Z3 w1492570117
+Z4 8F:/Work/FPGA/Processor-Design/UART.v
+Z5 FF:/Work/FPGA/Processor-Design/UART.v
+L0 17
 Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1492550653.000000
-Z8 !s107 F:/Work/FPGA/Processor-Design/ALU.v|
-Z9 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Work/FPGA/Processor-Design|F:/Work/FPGA/Processor-Design/ALU.v|
+Z7 !s108 1492570140.000000
+Z8 !s107 F:/Work/FPGA/Processor-Design/UART.v|
+Z9 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Work/FPGA/Processor-Design|F:/Work/FPGA/Processor-Design/UART.v|
 !i113 1
 Z10 o-vlog01compat -work work
 Z11 !s92 -vlog01compat -work work +incdir+F:/Work/FPGA/Processor-Design
 Z12 tCvgOpt 0
-n@a@l@u
-vtestALU
+n@baud@sync
+vReceiver
 R1
 !i10b 1
-!s100 Q_E3igNh;h]kOzRaaneEg1
-IhJhDzO[b>Fn5OnSiD_5[a1
+!s100 1@Fz7o214_JQ1lKUiDgLf3
+I30ngcdOG9_:c2XdiZN`?b3
 R2
 R0
 R3
 R4
 R5
-L0 69
+L0 58
 R6
 r1
 !s85 0
@@ -53,4 +53,73 @@ R9
 R10
 R11
 R12
-ntest@a@l@u
+n@receiver
+vtestUART
+R1
+!i10b 1
+!s100 LWRC8zD7OAa4ES6[f^L:b2
+IHQz_>58JHG>cNXb__l<4P0
+R2
+R0
+R3
+R4
+R5
+L0 75
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+R12
+ntest@u@a@r@t
+vTransmitter
+R1
+!i10b 1
+!s100 P:SW8ZM;0P3BJf=[cj?Kg2
+Ij]ibfm8[@oNGf;CKdS8@:3
+R2
+R0
+R3
+R4
+R5
+L0 42
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+R12
+n@transmitter
+vUART
+R1
+!i10b 1
+!s100 4b;Y0AoC^d3oM[<joV44h2
+I<jB4?0C5:Rl@B=jYoaX463
+R2
+R0
+R3
+R4
+R5
+L0 1
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+R12
+n@u@a@r@t

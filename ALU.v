@@ -8,12 +8,14 @@ module ALU
 );
 
     // Operation Identifiers
-    parameter ADDITION  = 3'b100;   // [C = A + B] and [Z = 0]
-    parameter SUBSTRACT = 3'b101;   // [C = A - B] and [Z = 1 if A = 0]
-    parameter MULTIPLY  = 3'b110;   // [C = A x 4] and [Z = 0]
-    parameter DIVISION  = 3'b111;   // [C = A / 2] and [Z = 0]
     parameter RESETCBUS = 3'b000;   // [C = 0] and [Z = 0]
-    parameter GOTHROUGH = 3'b001;   // [C = B] and [Z = 1 if A = 0]
+    parameter ADDITION  = 3'b001;   // [C = A + B] and [Z = 0]
+    parameter SUBSTRACT = 3'b010;   // [C = A - B] and [Z = 1 if A = 0]
+    parameter MULTIPLY2 = 3'b100;   // [C = A x 2] and [Z = 0]
+    parameter MULTIPLY4 = 3'b101;   // [C = A x 4] and [Z = 0]
+    parameter DIVISION2 = 3'b110;   // [C = A / 2] and [Z = 0]
+    parameter DIVISION4 = 3'b111;   // [C = A / 4] and [Z = 0]
+    parameter GOTHROUGH = 3'b011;   // [C = B] and [Z = 1 if A = 0]
 	
     always @ (Operation or BusA or BusB)
         begin
@@ -30,16 +32,28 @@ module ALU
                         BusC = BusA - BusB;
                         FlagZ = ((BusA == 16'b0000_0000_0000_0000) ? 1'b1 : 1'b0);
                     end
-                // Multiplication
-                MULTIPLY:
+                // Multiplication by 2
+                MULTIPLY2:
+                    begin
+                        BusC = BusA << 1;
+                        FlagZ = 1'b0;
+                    end
+                // Multiplication by 4
+                MULTIPLY4:
                     begin
                         BusC = BusA << 2;
                         FlagZ = 1'b0;
                     end
-                // Division
-                DIVISION:
+                // Division by 2
+                DIVISION2:
                     begin
                         BusC = BusA >> 1;
+                        FlagZ = 1'b0;
+                    end
+                // Division by 4
+                DIVISION4:
+                    begin
+                        BusC = BusA >> 2;
                         FlagZ = 1'b0;
                     end
                 // Reset Bus line C
@@ -76,6 +90,16 @@ module testALU;
     // Output wires
     wire FlagZ;
     wire [15:0] BusC;
+    
+    // Operation Identifiers
+    parameter RESETCBUS = 3'b000;   // [C = 0] and [Z = 0]
+    parameter ADDITION  = 3'b001;   // [C = A + B] and [Z = 0]
+    parameter SUBSTRACT = 3'b010;   // [C = A - B] and [Z = 1 if A = 0]
+    parameter MULTIPLY2 = 3'b100;   // [C = A x 2] and [Z = 0]
+    parameter MULTIPLY4 = 3'b101;   // [C = A x 4] and [Z = 0]
+    parameter DIVISION2 = 3'b110;   // [C = A / 2] and [Z = 0]
+    parameter DIVISION4 = 3'b111;   // [C = A / 4] and [Z = 0]
+    parameter GOTHROUGH = 3'b011;   // [C = B] and [Z = 1 if A = 0]
 	
     ALU UUT(
         .BusA(BusA),
@@ -97,35 +121,35 @@ module testALU;
         #10 // Addition
             BusA = 16'b0000_0000_0000_1111;
             BusB = 16'b0000_0000_1111_0000;
-            Operation = 3'b100;
+            Operation = ADDITION;
         #10 // Substraction
             BusA = 16'b0000_0000_1111_1111;
             BusB = 16'b0000_0000_1111_0000;
-            Operation = 3'b101;
+            Operation = SUBSTRACT;
         #10 // Multiplication
             BusA = 16'b0000_0000_0000_1111;
             BusB = 16'b0000_0000_1111_0000;
-            Operation = 3'b110;
+            Operation = MULTIPLY2;
         #10 // Division
             BusA = 16'b0000_0000_0000_1111;
             BusB = 16'b0000_0000_1111_0000;
-            Operation = 3'b111;
+            Operation = DIVISION2;
         #10 // Go Through
             BusA = 16'b0000_1100_0011_0011;
             BusB = 16'b0000_1010_0101_0101;
-            Operation = 3'b001;
+            Operation = GOTHROUGH;
         #10 // Reset C Bus
             BusA = 16'b0000_0000_0000_1111;
             BusB = 16'b0000_0000_1111_0000;
-            Operation = 3'b000;
+            Operation = RESETCBUS;
         #10 // Default Cases
             BusA = 16'b0000_0000_0000_1111;
             BusB = 16'b0000_0000_1111_0000;
-            Operation = 3'b010;
+            Operation = MULTIPLY4;
         #10 // Default Cases
             BusA = 16'b0000_0000_0000_1111;
             BusB = 16'b0000_0000_1111_0000;
-            Operation = 3'b011;
+            Operation = DIVISION4;
     end
 
 endmodule
