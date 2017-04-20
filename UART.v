@@ -174,94 +174,179 @@ endmodule
 /*****************************************************************************/
 module Receiver (
 	input CLOCK, RESET,
-    input rx, s_tick,
-    output reg rx_done_tick,
-    output [7:0] dout
+    input LINEIN, TICK,
+    output reg DONE,
+    output reg BUSY,
+    output [7:0] DATA
 );
 
-    localparam [1:0] idle = 2'b00;
-    localparam [1:0] start = 2'b01; 
-    localparam [1:0] data = 2'b10; 
-    localparam [1:0] stop = 2'b11;
+    localparam [1:0] IDLE = 2'b00;
+    localparam [1:0] STRT = 2'b01; 
+    localparam [1:0] FETC = 2'b10; 
+    localparam [1:0] STOP = 2'b11;
    
-    reg [1:0] state_reg, state_next;
-    reg [3:0] s_reg, s_next;
-    reg [2:0] n_reg, n_next;
-    reg [7:0] b_reg, b_next;
+    reg [1:0] CURRENT_STATE, STATE_NEXT;
+    reg [2:0] N_REG, N_NEXT;
+    reg [7:0] B_REG, B_NEXT;
     
     always @ (posedge CLOCK, posedge RESET)
-        if(RESET) 
+        if (RESET) 
             begin 
-                state_reg<= idle;
-                s_reg<= 0;
-                n_reg<= 0;
-                b_reg<= 0;
-            end 
+                CURRENT_STATE <= IDLE;
+                N_REG <= 0;
+                B_REG <= 0;
+            end
         else 
             begin 
-                state_reg<= state_next;
-                s_reg<= s_next;
-                n_reg<= n_next;
-                b_reg<= b_next;
+                CURRENT_STATE <= STATE_NEXT;
+                N_REG <= N_NEXT;
+                B_REG <= B_NEXT;
             end
     
     always @ (*)
         begin 
-            state_next = state_reg; 
-            rx_done_tick = 1'b0; 
-            s_next = s_reg; 
-            n_next = n_reg; 
-            b_next = b_reg; 
-            
-            case (state_reg) 
-                idle: 
-                    if (~rx) 
+            STATE_NEXT = CURRENT_STATE; 
+            DONE = 1'b0; 
+            N_NEXT = N_REG; 
+            B_NEXT = B_REG; 
+
+            case (CURRENT_STATE) 
+                IDLE:
+                    // If LINEIN goes low when in IDLE
+                    // that is beginning of a bit stream
+                    if (~LINEIN)
                         begin 
-                            state_next = start; 
-                            s_next = 0; 
-                        end 
-                
-                start: 
-                    if (s_tick) 
-                        if(s_reg == 7) 
-                            begin 
-                                state_next = data; 
-                                s_next = 0; 
-                                n_next = 0; 
-                            end 
-                    else 
-                        s_next = s_reg + 1'b1; 
-                    
-                data: 
-                    if (s_tick) 
-                        if (s_reg == 15) 
-                        begin 
-                            s_next = 0; 
-                            b_next = {rx, b_reg[7:1]}; 
-                            if (n_reg == (7)) 
-                                state_next = stop; 
-                            else 
-                                n_next = n_reg + 1'b1; 
-                        end 
-                    else 
-                        s_next = s_reg + 1'b1; 
-                
-                stop:
-                    if (s_tick) 
-                        if (s_reg == (15)) 
-                            begin 
-                                state_next = idle; 
-                                rx_done_tick = 1'b1; 
-                            end 
-                    else
-                        s_next = s_reg + 1'b1; 
-            
+                            STATE_NEXT = STRT;
+                        end
+
+                STRT:
+                    if (TICK)
+                        begin
+                            STATE_NEXT = FETC; 
+                            N_NEXT = 0;
+                        end
+
+                FETC: 
+                    if (TICK)
+                        begin
+                            B_NEXT = {LINEIN, B_REG[7:1]}; 
+                            if (N_REG == 7)
+                                STATE_NEXT = STOP;
+                            else
+                                begin
+                                    N_NEXT = N_REG + 1'b1;
+                                    BUSY = 1'b1;
+                                end
+                        end
+
+                STOP:
+                    if (TICK)
+                        begin
+                            STATE_NEXT = IDLE;
+                            DONE = 1'b1;
+                            BUSY = 1'b0;
+                        end
+
             endcase 
         end 
         
-        assign dout = b_reg;
+        assign DATA = B_REG;
         
-endmodule 
+endmodule
+
+/*****************************************************************************/
+/**************************** Receiver Test Bench ****************************/
+/*****************************************************************************/
+module testReceiver;
+
+    reg PULSE;
+    reg ENABLE;
+    reg RESET;
+    reg LINEIN;
+    wire [7:0] DATA;
+    wire TICK, DONE, BUSY;
+    
+    // Clock for simulation purposes
+    initial begin
+        // Initiate clock_pulse reg value
+        PULSE = 0;
+        forever begin
+            #1 PULSE = ~PULSE;
+        end
+    end
+	 
+    // Initiate registers with values
+    initial begin
+        // Enable the baud generator
+        ENABLE = 1'b1;
+        RESET = 1'b1;
+        LINEIN = 1'b1;
+    end
+    
+    BaudSync UUT(
+        .CLOCK(PULSE),
+        .ENABLE(ENABLE), 
+        .TICK(TICK)
+    );
+
+    Receiver VVT(
+        .CLOCK(PULSE),
+        .RESET(RESET),
+        .LINEIN(LINEIN),
+        .DATA(DATA),
+        .BUSY(BUSY),
+        .DONE(DONE),
+        .TICK(TICK)
+    );
+    
+    // Test
+    initial begin
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+            RESET = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b1;
+        @ (posedge TICK);
+            LINEIN = 1'b0;
+        repeat(10) @(posedge TICK);
+            $finish;
+    end
+
+endmodule
 
 /*****************************************************************************/
 /************************** Baud Rate Synchronizer ***************************/

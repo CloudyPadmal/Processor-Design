@@ -12,41 +12,42 @@
 # 
 # vlog -vlog01compat -work work +incdir+F:/Work/FPGA/Processor-Design {F:/Work/FPGA/Processor-Design/UART.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 04:57:19 on Apr 20,2017
+# Start time: 12:12:44 on Apr 20,2017
 # vlog -reportprogress 300 -vlog01compat -work work "+incdir+F:/Work/FPGA/Processor-Design" F:/Work/FPGA/Processor-Design/UART.v 
 # -- Compiling module UART
 # -- Compiling module Transmitter
 # -- Compiling module testTransmitter
 # -- Compiling module Receiver
+# -- Compiling module testReceiver
 # -- Compiling module BaudSync
 # -- Compiling module testBaudSync
 # 
 # Top level modules:
 # 	UART
 # 	testTransmitter
-# 	Receiver
+# 	testReceiver
 # 	testBaudSync
-# End time: 04:57:19 on Apr 20,2017, Elapsed time: 0:00:00
+# End time: 12:12:44 on Apr 20,2017, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
-vsim work.testTransmitter
-# vsim work.testTransmitter 
-# Start time: 04:57:22 on Apr 20,2017
-# Loading work.testTransmitter
+vsim work.testReceiver
+# vsim work.testReceiver 
+# Start time: 12:12:47 on Apr 20,2017
+# Loading work.testReceiver
 # Loading work.BaudSync
-# Loading work.Transmitter
-add wave -position end  sim:/testTransmitter/PULSE
-add wave -position end  sim:/testTransmitter/ENABLE
-add wave -position end  sim:/testTransmitter/RESET
-add wave -position end  sim:/testTransmitter/TXSTART
-add wave -position end  sim:/testTransmitter/LINEIN
-add wave -position end  sim:/testTransmitter/TICK
-add wave -position end  sim:/testTransmitter/DATA
-add wave -position end  sim:/testTransmitter/DONE
+# Loading work.Receiver
+add wave -position end  sim:/testReceiver/PULSE
+add wave -position end  sim:/testReceiver/ENABLE
+add wave -position end  sim:/testReceiver/RESET
+add wave -position end  sim:/testReceiver/LINEIN
+add wave -position end  sim:/testReceiver/DATA
+add wave -position end  sim:/testReceiver/TICK
+add wave -position end  sim:/testReceiver/DONE
+add wave -position end  sim:/testReceiver/BUSY
 run -all
-# ** Note: $finish    : F:/Work/FPGA/Processor-Design/UART.v(167)
-#    Time: 9115 ps  Iteration: 2  Instance: /testTransmitter
+# ** Note: $finish    : F:/Work/FPGA/Processor-Design/UART.v(346)
+#    Time: 13021 ps  Iteration: 2  Instance: /testReceiver
 # 1
-# Break in Module testTransmitter at F:/Work/FPGA/Processor-Design/UART.v line 167
-# End time: 04:57:58 on Apr 20,2017, Elapsed time: 0:00:36
+# Break in Module testReceiver at F:/Work/FPGA/Processor-Design/UART.v line 346
+# End time: 12:13:42 on Apr 20,2017, Elapsed time: 0:00:55
 # Errors: 0, Warnings: 0
