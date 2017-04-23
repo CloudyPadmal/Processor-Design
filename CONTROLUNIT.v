@@ -62,6 +62,7 @@ module CONTROLUNIT
     localparam GOTHROUGH = 3'b011;   // [C = B] and [Z = 1 if A = 0]
     
     reg [5:0] PRESENT_STAGE;
+    // When the program starts, CU starts with FETCH1
     reg [5:0] NEXT_STAGE = FETCH1;
     
     // At each negative clock edge, refresh the current stage
@@ -77,7 +78,7 @@ module CONTROLUNIT
                     ARINCREMENT <= 0;
                     FETCH <= 0;
                     FINISH <= 0;
-                    FLAGB <= 3'd7; //im
+                    FLAGB <= 3'b111; //im
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000;
                     NEXT_STAGE <= FETCH2;
@@ -91,7 +92,7 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 1; //IR
                     FINISH <= 0; 
-                    FLAGB <= 3'd7; 
+                    FLAGB <= 3'b111; 
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000; 
                     NEXT_STAGE <= FETCH3; 
@@ -105,7 +106,7 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6;//dm 
+                    FLAGB <= 3'b110;//dm 
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000; 
                     NEXT_STAGE <= FETCH4; 
@@ -119,7 +120,7 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6;//dm 
+                    FLAGB <= 3'b110;//dm 
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000; 
                     NEXT_STAGE <= IR[5:0]; 
@@ -562,3 +563,102 @@ module CONTROLUNIT
         endcase
         
 endmodule
+
+/*****************************************************************************/
+/*********************** TEST BENCH FOR CONTROL UNIT *************************/
+/*****************************************************************************/
+module testCONTROLUNIT;
+
+    reg CLOCK;
+    reg FLAGZ;
+    reg [7:0] IR;
+    wire PCINCREMENT;
+    wire R1INCREMENT;
+    wire R2INCREMENT;
+    wire ARINCREMENT;
+    wire FETCH;
+    wire FINISH;
+    wire [2:0] FLAGB;
+    wire [2:0] ALU;
+    wire [7:0] FLAGC;
+    
+    // Constants
+    localparam FETCH1      = 6'b000_000;
+    localparam FETCH2      = 6'b000_001;
+    localparam FETCH3      = 6'b000_010;
+    localparam FETCH4      = 6'd57;
+    localparam CLAC        = 6'd3;
+    localparam MVACAR      = 6'd59;
+    localparam STAC1       = 6'd4;
+    localparam WRITE       = 6'd53;
+    localparam MVACRI      = 6'd6;
+    localparam MVACRII     = 6'd7;
+    localparam MVACTR      = 6'd8;
+    localparam MVACR       = 6'd9;
+    localparam MVRIAC      = 6'd10;
+    localparam MVRIIAC     = 6'd11;
+    localparam MVTRAC      = 6'd12;
+    localparam MVRAC       = 6'd13;
+    localparam INCAR       = 6'd14;
+    localparam INCR1       = 6'd40;
+    localparam INCR2       = 6'd41;
+    localparam LDAC1       = 6'd15;
+    localparam LDAC2       = 6'd16;
+    localparam SUB         = 6'd17;
+    localparam ADD         = 6'd19;
+    localparam DIV2        = 6'd20;
+    localparam MUL4        = 6'd21;
+    localparam JPNZ        = 6'd22;
+    localparam JPNZY1      = 6'd23;
+    localparam JPNZN1      = 6'd24;
+    localparam JPNZN2      = 6'd25;
+    localparam JPNZN3      = 6'd26;
+    localparam JPNZNSKIP   = 6'd55;
+    localparam ADDM1       = 6'd27;
+    localparam ADDM2       = 6'd28;
+    localparam ADDMPC      = 6'd54;
+    localparam NOP         = 6'd58;
+    localparam END         = 6'd60;
+
+    // Instantiate Control Unit
+    CONTROLUNIT UUT(
+        .CLOCK(CLOCK),
+        .FLAGZ(FLAGZ),
+        .IR(IR),
+        .PCINCREMENT(PCINCREMENT),
+        .R1INCREMENT(R1INCREMENT),
+        .R2INCREMENT(R2INCREMENT),
+        .ARINCREMENT(ARINCREMENT),
+        .FETCH(FETCH),
+        .FINISH(FINISH),
+        .FLAGB(FLAGB),
+        .ALU(ALU),
+        .FLAGC(FLAGC)    
+    );
+    
+    // Clock for simulation purposes
+    initial begin
+        // Initiate CLOCK reg value
+        CLOCK = 1'b0;
+        forever begin
+            #1 CLOCK = ~CLOCK;
+        end
+    end
+    
+    // Initial registers
+    initial begin
+        FLAGZ = 1'b0;
+        IR = 8'b0000_0000;        
+    end
+    
+    // Test
+    initial begin
+        repeat(10) @(negedge CLOCK);
+            IR = 8'b0000_1100;
+        repeat(10) @(posedge CLOCK);
+            $finish;
+    end
+    
+
+endmodule
+

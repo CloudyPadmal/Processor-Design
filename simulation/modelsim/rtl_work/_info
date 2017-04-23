@@ -8,40 +8,40 @@ z2
 !i10f 100
 cModel Technology
 Z0 dF:/Work/FPGA/Processor-Design/simulation/modelsim
-vDRAM
-Z1 !s110 1492935147
+vCONTROLUNIT
+Z1 !s110 1492937653
 !i10b 1
-!s100 Q2oK5^5NebUNGhUEbFkZ;1
-I^R9S3eEj?H[G@>81N^DI22
+!s100 WB1[NQ]HOHJNaZd`ahKT82
+IdMVOEY[E6F3<@4o^f?zC^3
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-Z3 w1492935067
-Z4 8F:/Work/FPGA/Processor-Design/DRAM.v
-Z5 FF:/Work/FPGA/Processor-Design/DRAM.v
-L0 40
+Z3 w1492937633
+Z4 8F:/Work/FPGA/Processor-Design/CONTROLUNIT.v
+Z5 FF:/Work/FPGA/Processor-Design/CONTROLUNIT.v
+L0 1
 Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1492935147.000000
-Z8 !s107 F:/Work/FPGA/Processor-Design/DRAM.v|
-Z9 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Work/FPGA/Processor-Design|F:/Work/FPGA/Processor-Design/DRAM.v|
+Z7 !s108 1492937653.000000
+Z8 !s107 F:/Work/FPGA/Processor-Design/CONTROLUNIT.v|
+Z9 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Work/FPGA/Processor-Design|F:/Work/FPGA/Processor-Design/CONTROLUNIT.v|
 !i113 1
 Z10 o-vlog01compat -work work
 Z11 !s92 -vlog01compat -work work +incdir+F:/Work/FPGA/Processor-Design
 Z12 tCvgOpt 0
-n@d@r@a@m
-vtestRAM
+n@c@o@n@t@r@o@l@u@n@i@t
+vtestCONTROLUNIT
 R1
 !i10b 1
-!s100 DMPSJd3YE12M>TTgoUzPT2
-I2AKYPdhfjea;@jnMD=^893
+!s100 Ja0[miOzCdG?GGGVe`F7n3
+IHFMTC@UzMoITB`ES;j_:W3
 R2
 R0
 R3
 R4
 R5
-L0 176
+L0 569
 R6
 r1
 !s85 0
@@ -53,4 +53,4 @@ R9
 R10
 R11
 R12
-ntest@r@a@m
+ntest@c@o@n@t@r@o@l@u@n@i@t

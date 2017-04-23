@@ -1,14 +1,14 @@
-Analysis & Synthesis Status : Successful - Sun Apr 23 13:41:20 2017
+Analysis & Synthesis Status : Successful - Sun Apr 23 14:24:06 2017
 Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 Revision Name : DownSampler
-Top-level Entity Name : DRAM
+Top-level Entity Name : CONTROLUNIT
 Family : Cyclone IV E
-Total logic elements : 62
-    Total combinational functions : 56
+Total logic elements : 105
+    Total combinational functions : 105
     Dedicated logic registers : 6
 Total registers : 6
-Total pins : 34
+Total pins : 30
 Total virtual pins : 0
-Total memory bits : 524,288
+Total memory bits : 0
 Embedded Multiplier 9-bit elements : 0
 Total PLLs : 0

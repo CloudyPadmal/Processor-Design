@@ -173,7 +173,10 @@ endmodule
 // Retrieval info: GEN_FILE: TYPE_NORMAL DRAM_syn.v TRUE
 // Retrieval info: LIB_FILE: altera_mf
 
-module testRAM();
+/*****************************************************************************/
+/*************************** TEST BENCH FOR DRAM *****************************/
+/*****************************************************************************/
+module testDRAM();
 
     reg [15:0] address;
     reg clock;
