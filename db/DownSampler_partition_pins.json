@@ -88,11 +88,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "IR[1]",
+					"name" : "FLAGZ",
 					"strict" : false
 				},
 				{
-					"name" : "FLAGZ",
+					"name" : "IR[1]",
 					"strict" : false
 				},
 				{

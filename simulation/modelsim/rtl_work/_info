@@ -9,13 +9,13 @@ z2
 cModel Technology
 Z0 dF:/Work/FPGA/Processor-Design/simulation/modelsim
 vCONTROLUNIT
-Z1 !s110 1492937653
+Z1 !s110 1494047299
 !i10b 1
-!s100 WB1[NQ]HOHJNaZd`ahKT82
-IdMVOEY[E6F3<@4o^f?zC^3
+!s100 DdKZ;o?2Uo7mK;ENJT;OV1
+ISibm36:@llUQUiL[6ZT7F2
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-Z3 w1492937633
+Z3 w1494047272
 Z4 8F:/Work/FPGA/Processor-Design/CONTROLUNIT.v
 Z5 FF:/Work/FPGA/Processor-Design/CONTROLUNIT.v
 L0 1
@@ -23,7 +23,7 @@ Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1492937653.000000
+Z7 !s108 1494047299.000000
 Z8 !s107 F:/Work/FPGA/Processor-Design/CONTROLUNIT.v|
 Z9 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Work/FPGA/Processor-Design|F:/Work/FPGA/Processor-Design/CONTROLUNIT.v|
 !i113 1
@@ -34,14 +34,14 @@ n@c@o@n@t@r@o@l@u@n@i@t
 vtestCONTROLUNIT
 R1
 !i10b 1
-!s100 Ja0[miOzCdG?GGGVe`F7n3
-IHFMTC@UzMoITB`ES;j_:W3
+!s100 i0=l2ZV9WCA?A7S=`Mjz[3
+IRO0YE`aPc?n`o>9kQa_Rd3
 R2
 R0
 R3
 R4
 R5
-L0 569
+L0 570
 R6
 r1
 !s85 0

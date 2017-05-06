@@ -18,39 +18,39 @@ module CONTROLUNIT
     localparam FETCH1      = 6'b000_000;
     localparam FETCH2      = 6'b000_001;
     localparam FETCH3      = 6'b000_010;
-    localparam FETCH4      = 6'd57;
-    localparam CLAC        = 6'd3;
-    localparam MVACAR      = 6'd59;
-    localparam STAC1       = 6'd4;
-    localparam WRITE       = 6'd53;
-    localparam MVACRI      = 6'd6;
-    localparam MVACRII     = 6'd7;
-    localparam MVACTR      = 6'd8;
-    localparam MVACR       = 6'd9;
-    localparam MVRIAC      = 6'd10;
-    localparam MVRIIAC     = 6'd11;
-    localparam MVTRAC      = 6'd12;
-    localparam MVRAC       = 6'd13;
-    localparam INCAR       = 6'd14;
-    localparam INCR1       = 6'd40;
-    localparam INCR2       = 6'd41;
-    localparam LDAC1       = 6'd15;
-    localparam LDAC2       = 6'd16;
-    localparam SUB         = 6'd17;
-    localparam ADD         = 6'd19;
-    localparam DIV2        = 6'd20;
-    localparam MUL4        = 6'd21;
-    localparam JPNZ        = 6'd22;
-    localparam JPNZY1      = 6'd23;
-    localparam JPNZN1      = 6'd24;
-    localparam JPNZN2      = 6'd25;
-    localparam JPNZN3      = 6'd26;
-    localparam JPNZNSKIP   = 6'd55;
-    localparam ADDM1       = 6'd27;
-    localparam ADDM2       = 6'd28;
-    localparam ADDMPC      = 6'd54;
-    localparam NOP         = 6'd58;
-    localparam END         = 6'd60;
+    localparam FETCH4      = 6'b111_001;
+    localparam CLAC        = 6'b000_011;
+    localparam MVACAR      = 6'b111_011;
+    localparam STAC1       = 6'b000_100;
+    localparam WRITE       = 6'b110_101;
+    localparam MVACRI      = 6'b000_110;
+    localparam MVACRII     = 6'b000_111;
+    localparam MVACTR      = 6'b001_000;
+    localparam MVACR       = 6'b001_001;
+    localparam MVRIAC      = 6'b001_010;
+    localparam MVRIIAC     = 6'b001_011;
+    localparam MVTRAC      = 6'b001_100;
+    localparam MVRAC       = 6'b001_101;
+    localparam INCAR       = 6'b001_110;
+    localparam INCR1       = 6'b101_000;
+    localparam INCR2       = 6'b101_001;
+    localparam LDAC1       = 6'b001_111;
+    localparam LDAC2       = 6'b010_000;
+    localparam SUB         = 6'b010_001;
+    localparam ADD         = 6'b010_011;
+    localparam DIV2        = 6'b010_100;
+    localparam MUL4        = 6'b010_101;
+    localparam JPNZ        = 6'b010_110;
+    localparam JPNZY1      = 6'b010_111;
+    localparam JPNZN1      = 6'b011_000;
+    localparam JPNZN2      = 6'b011_001;
+    localparam JPNZN3      = 6'b011_010;
+    localparam JPNZNSKIP   = 6'b110_111;
+    localparam ADDM1       = 6'b011_011;
+    localparam ADDM2       = 6'b011_100;
+    localparam ADDMPC      = 6'b110_110;
+    localparam NOP         = 6'b111_010;
+    localparam END         = 6'b111_100;
     // ALU Operation Identifiers
     localparam RESETCBUS = 3'b000;   // [C = 0] and [Z = 0]
     localparam ADDITION  = 3'b001;   // [C = A + B] and [Z = 0]
@@ -70,7 +70,7 @@ module CONTROLUNIT
     // When a stage changes or a flag pops or a new instruction
     always @ (PRESENT_STAGE or FLAGZ or IR)
         case (PRESENT_STAGE)
-            FETCH1:
+            FETCH1: /* Reset the Control unit and set next stage to FETCH2 */
                 begin
                     PCINCREMENT <= 0;
                     R1INCREMENT <= 0;
@@ -78,27 +78,27 @@ module CONTROLUNIT
                     ARINCREMENT <= 0;
                     FETCH <= 0;
                     FINISH <= 0;
-                    FLAGB <= 3'b111; //im
+                    FLAGB <= 3'b111;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000;
+                    FLAGC <= 8'b0000_0000;
                     NEXT_STAGE <= FETCH2;
                 end
-                
-            FETCH2:
+
+            FETCH2: /* Issue a fetch signal to fetch the instruction from IR */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
                     R2INCREMENT <= 0;   
                     ARINCREMENT <= 0; 
-                    FETCH <= 1; //IR
+                    FETCH <= 1;
                     FINISH <= 0; 
                     FLAGB <= 3'b111; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000; 
+                    FLAGC <= 8'b0000_0000; 
                     NEXT_STAGE <= FETCH3; 
                 end
-                
-            FETCH3:
+
+            FETCH3: /* Increment PC by 1 and ready for the instruction */
                 begin
                     PCINCREMENT <= 1; 
                     R1INCREMENT <= 0; 
@@ -106,13 +106,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'b110;//dm 
+                    FLAGB <= 3'b110;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000; 
+                    FLAGC <= 8'b0000_0000; 
                     NEXT_STAGE <= FETCH4; 
                 end
-                
-            FETCH4:
+
+            FETCH4: /* Set next stage to the New Instruction */
                 begin
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -120,13 +120,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'b110;//dm 
+                    FLAGB <= 3'b110;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000; 
+                    FLAGC <= 8'b0000_0000; 
                     NEXT_STAGE <= IR[5:0]; 
                 end
-                
-            CLAC:
+
+            CLAC: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -134,13 +134,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6;//dm 
+                    FLAGB <= 3'b110;
                     ALU <= RESETCBUS;
-                    FLAGC <= 8'b00000010;//ac 
-                    NEXT_STAGE <= FETCH1; 
+                    FLAGC <= 8'b0000_0010;
+                    NEXT_STAGE <= FETCH1;
                 end
-                
-            MVACAR:
+
+            MVACAR: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -148,13 +148,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd5; //ac
+                    FLAGB <= 3'b101;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b10000000;//ar 
-                    NEXT_STAGE <= FETCH1; 
+                    FLAGC <= 8'b1000_0000;
+                    NEXT_STAGE <= FETCH1;
                 end 
-                    
-            STAC1:
+
+            STAC1: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -162,13 +162,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd5;//ac 
+                    FLAGB <= 3'b101;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000001;//dm 
+                    FLAGC <= 8'b0000_0001;
                     NEXT_STAGE <= WRITE; 
                 end
-                
-            WRITE:
+
+            WRITE: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -176,13 +176,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd5; //ac
+                    FLAGB <= 3'b101;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000001; //dm
+                    FLAGC <= 8'b0000_0001;
                     NEXT_STAGE <= FETCH1; 
                 end 
 
-            MVACRI:
+            MVACRI: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -190,13 +190,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd5; //ac
+                    FLAGB <= 3'b101;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00100000; //r1
+                    FLAGC <= 8'b0010_0000;
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            MVACRII:
+
+            MVACRII: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -204,13 +204,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd5; 
+                    FLAGB <= 3'b101; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00010000; //r2
+                    FLAGC <= 8'b0001_0000;
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            MVACTR:
+
+            MVACTR: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0;  
@@ -218,13 +218,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd5; 
+                    FLAGB <= 3'b101; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00001000; //tr
+                    FLAGC <= 8'b0000_1000;
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            MVACR:
+
+            MVACR: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -232,13 +232,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd5; 
+                    FLAGB <= 3'b101; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000100; //r
+                    FLAGC <= 8'b0000_0100;
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            MVRIAC:
+
+            MVRIAC: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -246,13 +246,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0;  
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd1;//r1 
+                    FLAGB <= 3'b001;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000010;//ac 
+                    FLAGC <= 8'b0000_0010;
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            MVRIIAC:
+
+            MVRIIAC: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -260,13 +260,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd2; 
+                    FLAGB <= 3'b010; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000010; 
+                    FLAGC <= 8'b0000_0010; 
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            MVTRAC:
+
+            MVTRAC: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -274,13 +274,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd3;   
+                    FLAGB <= 3'b011;   
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000010; 
+                    FLAGC <= 8'b0000_0010; 
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            MVRAC:
+
+            MVRAC: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -288,13 +288,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd4; 
+                    FLAGB <= 3'b100; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000010; 
+                    FLAGC <= 8'b0000_0010; 
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            INCAR:
+
+            INCAR: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -302,13 +302,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 1; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; //dm
+                    FLAGB <= 3'b110;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000; 
+                    FLAGC <= 8'b0000_0000; 
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            INCR1:
+
+            INCR1: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 1; 
@@ -316,13 +316,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; 
+                    FLAGB <= 3'b110; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000; 
+                    FLAGC <= 8'b0000_0000; 
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            INCR2:
+
+            INCR2: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -330,13 +330,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; 
+                    FLAGB <= 3'b110; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000; 
+                    FLAGC <= 8'b0000_0000; 
                     NEXT_STAGE <= FETCH1; 
                 end
 
-            LDAC1:
+            LDAC1: /*  */
                 begin
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -344,13 +344,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; //dm
+                    FLAGB <= 3'b110;
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000; 
                     NEXT_STAGE <= LDAC2; 
                 end
                 
-            LDAC2:
+            LDAC2: /*  */
                 begin
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -358,13 +358,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; 
+                    FLAGB <= 3'b110; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000010; //ac
+                    FLAGC <= 8'b00000010;
                     NEXT_STAGE <= FETCH1; 
                 end
                
-            ADD:
+            ADD: /*  */
                 begin
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -372,13 +372,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd4; //r
+                    FLAGB <= 3'b100;
                     ALU <= ADDITION;
-                    FLAGC <= 8'b00000010; //ac
+                    FLAGC <= 8'b00000010;
                     NEXT_STAGE <= FETCH1; 
                 end 
 
-            SUB:
+            SUB: /*  */
                 begin
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -386,13 +386,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0;   
                     FETCH <= 0;   
                     FINISH <= 0; 
-                    FLAGB <= 3'd4; 
+                    FLAGB <= 3'b100; 
                     ALU <= SUBSTRACT;
                     FLAGC <= 8'b00000010; 
                     NEXT_STAGE <= FETCH1; 
                 end
                 
-            MUL4:
+            MUL4: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -400,13 +400,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; //dm
+                    FLAGB <= 3'b110;
                     ALU <= MULTIPLY4;
                     FLAGC <= 8'b00000010; 
                     NEXT_STAGE <= FETCH1; 
                 end
 
-            DIV2:
+            DIV2: /*  */
                 begin
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -414,13 +414,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; 
+                    FLAGB <= 3'b110; 
                     ALU <= DIVISION2;
                     FLAGC <= 8'b00000010; 
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            JPNZ:
+
+            JPNZ: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -428,14 +428,14 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; //dm
+                    FLAGB <= 3'b110;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000; 
+                    FLAGC <= 8'b0000_0000; 
                     if(FLAGZ)NEXT_STAGE <= JPNZY1; 
                     else NEXT_STAGE <= JPNZN1; 
                 end
-                
-            JPNZY1:
+
+            JPNZY1: /*  */
                 begin 
                     PCINCREMENT <= 1; 
                     R1INCREMENT <= 0; 
@@ -443,13 +443,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; 
+                    FLAGB <= 3'b110; 
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000; 
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            JPNZN1:
+
+            JPNZN1: /*  */
                 begin 
                     PCINCREMENT <= 0;  
                     R1INCREMENT <= 0; 
@@ -457,13 +457,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd7; //im
+                    FLAGB <= 3'b111;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000000; 
+                    FLAGC <= 8'b0000_0000; 
                     NEXT_STAGE <= JPNZN2; 
                 end
-                
-            JPNZN2:
+
+            JPNZN2: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -471,13 +471,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd7; 
+                    FLAGB <= 3'b111; 
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b00000010; //ac
+                    FLAGC <= 8'b0000_0010;
                     NEXT_STAGE <= JPNZN3; 
                 end
-                
-            JPNZN3:
+
+            JPNZN3: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -485,13 +485,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd5; //ac
+                    FLAGB <= 3'b101;
                     ALU <= GOTHROUGH;
-                    FLAGC <= 8'b01000000; //pc
+                    FLAGC <= 8'b01000000;
                     NEXT_STAGE <= FETCH1; 
                 end
-                
-            ADDM1:
+
+            ADDM1: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -499,27 +499,27 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd0; //pc
+                    FLAGB <= 3'b000;
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000; 
                     NEXT_STAGE <= ADDM2; 
                 end
-                    
-            ADDMPC:
-                begin //
+
+            ADDMPC: /*  */
+                begin 
                     PCINCREMENT <= 1; 
                     R1INCREMENT <= 0; 
                     R2INCREMENT <= 0;  
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0;  
-                    FLAGB <= 3'd2; //r2?
+                    FLAGB <= 3'b010;
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000; 
                     NEXT_STAGE <= FETCH1;
                 end
-                
-            ADDM2:
+
+            ADDM2: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -527,13 +527,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd7; //im
+                    FLAGB <= 3'b111;
                     ALU <= ADDITION;
-                    FLAGC <= 8'b00000010; //ac
+                    FLAGC <= 8'b00000010;
                     NEXT_STAGE <= ADDMPC; 
                 end
-                    
-            NOP:
+
+            NOP: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -541,13 +541,13 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 0; 
-                    FLAGB <= 3'd6; //dm
+                    FLAGB <= 3'b101;
                     ALU <= GOTHROUGH;
                     FLAGC <= 8'b00000000; 
                     NEXT_STAGE <= FETCH1;
                 end
-                
-            END:
+
+            END: /*  */
                 begin 
                     PCINCREMENT <= 0; 
                     R1INCREMENT <= 0; 
@@ -555,10 +555,10 @@ module CONTROLUNIT
                     ARINCREMENT <= 0; 
                     FETCH <= 0; 
                     FINISH <= 1; 
-                    FLAGB <= 3'd0; 
+                    FLAGB <= 3'b000; 
                     ALU <= GOTHROUGH; 
                     FLAGC <= 8'b00000000; 
-                    NEXT_STAGE <= END; 
+                    NEXT_STAGE <= END;
                 end
         endcase
         
@@ -583,42 +583,8 @@ module testCONTROLUNIT;
     wire [7:0] FLAGC;
     
     // Constants
-    localparam FETCH1      = 6'b000_000;
-    localparam FETCH2      = 6'b000_001;
-    localparam FETCH3      = 6'b000_010;
-    localparam FETCH4      = 6'd57;
-    localparam CLAC        = 6'd3;
-    localparam MVACAR      = 6'd59;
-    localparam STAC1       = 6'd4;
-    localparam WRITE       = 6'd53;
-    localparam MVACRI      = 6'd6;
-    localparam MVACRII     = 6'd7;
-    localparam MVACTR      = 6'd8;
-    localparam MVACR       = 6'd9;
-    localparam MVRIAC      = 6'd10;
-    localparam MVRIIAC     = 6'd11;
-    localparam MVTRAC      = 6'd12;
-    localparam MVRAC       = 6'd13;
-    localparam INCAR       = 6'd14;
-    localparam INCR1       = 6'd40;
-    localparam INCR2       = 6'd41;
-    localparam LDAC1       = 6'd15;
-    localparam LDAC2       = 6'd16;
-    localparam SUB         = 6'd17;
-    localparam ADD         = 6'd19;
-    localparam DIV2        = 6'd20;
-    localparam MUL4        = 6'd21;
-    localparam JPNZ        = 6'd22;
-    localparam JPNZY1      = 6'd23;
-    localparam JPNZN1      = 6'd24;
-    localparam JPNZN2      = 6'd25;
-    localparam JPNZN3      = 6'd26;
-    localparam JPNZNSKIP   = 6'd55;
-    localparam ADDM1       = 6'd27;
-    localparam ADDM2       = 6'd28;
-    localparam ADDMPC      = 6'd54;
-    localparam NOP         = 6'd58;
-    localparam END         = 6'd60;
+    localparam NOP         = 6'b111_010;
+    localparam END         = 6'b111_100;
 
     // Instantiate Control Unit
     CONTROLUNIT UUT(
@@ -647,18 +613,19 @@ module testCONTROLUNIT;
     
     // Initial registers
     initial begin
-        FLAGZ = 1'b0;
+        FLAGZ = 1'b1;
         IR = 8'b0000_0000;        
     end
     
     // Test
     initial begin
+        repeat(5) @(negedge CLOCK);
+            IR = {2'b00, NOP};
         repeat(10) @(negedge CLOCK);
-            IR = 8'b0000_1100;
+            IR = {2'b00, END};
         repeat(10) @(posedge CLOCK);
             $finish;
-    end
-    
+    end    
 
 endmodule
 
