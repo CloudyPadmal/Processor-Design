@@ -4,27 +4,27 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "PCINCREMENT",
+					"name" : "FLAGS[0]",
 					"strict" : false
 				},
 				{
-					"name" : "R1INCREMENT",
+					"name" : "FLAGS[1]",
 					"strict" : false
 				},
 				{
-					"name" : "R2INCREMENT",
+					"name" : "FLAGS[2]",
 					"strict" : false
 				},
 				{
-					"name" : "ARINCREMENT",
+					"name" : "FLAGS[3]",
 					"strict" : false
 				},
 				{
-					"name" : "FETCH",
+					"name" : "FLAGS[4]",
 					"strict" : false
 				},
 				{
-					"name" : "FINISH",
+					"name" : "FLAGS[5]",
 					"strict" : false
 				},
 				{
@@ -88,6 +88,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "IR[0]",
+					"strict" : false
+				},
+				{
 					"name" : "FLAGZ",
 					"strict" : false
 				},
@@ -96,15 +100,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "IR[0]",
-					"strict" : false
-				},
-				{
 					"name" : "IR[4]",
 					"strict" : false
 				},
 				{
-					"name" : "IR[2]",
+					"name" : "IR[3]",
 					"strict" : false
 				},
 				{
@@ -112,7 +112,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "IR[3]",
+					"name" : "IR[2]",
 					"strict" : false
 				}
 			]

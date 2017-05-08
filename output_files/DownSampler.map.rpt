@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DownSampler
-Sat May 06 10:40:34 2017
+Mon May 08 12:11:17 2017
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
 
 
@@ -19,6 +19,7 @@ Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
  11. Post-Synthesis Netlist Statistics for Top Partition
  12. Elapsed Time Per Partition
  13. Analysis & Synthesis Messages
+ 14. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -45,13 +46,13 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat May 06 10:40:34 2017       ;
+; Analysis & Synthesis Status        ; Successful - Mon May 08 12:11:17 2017       ;
 ; Quartus Prime Version              ; 16.1.0 Build 196 10/24/2016 SJ Lite Edition ;
 ; Revision Name                      ; DownSampler                                 ;
 ; Top-level Entity Name              ; CONTROLUNIT                                 ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 106                                         ;
-;     Total combinational functions  ; 106                                         ;
+; Total logic elements               ; 104                                         ;
+;     Total combinational functions  ; 104                                         ;
 ;     Dedicated logic registers      ; 6                                           ;
 ; Total registers                    ; 6                                           ;
 ; Total pins                         ; 30                                          ;
@@ -179,16 +180,16 @@ agreement for further details.
 +---------------------------------------------+------------------+
 ; Resource                                    ; Usage            ;
 +---------------------------------------------+------------------+
-; Estimated Total logic elements              ; 106              ;
+; Estimated Total logic elements              ; 104              ;
 ;                                             ;                  ;
-; Total combinational functions               ; 106              ;
+; Total combinational functions               ; 104              ;
 ; Logic element usage by number of LUT inputs ;                  ;
-;     -- 4 input functions                    ; 61               ;
-;     -- 3 input functions                    ; 41               ;
-;     -- <=2 input functions                  ; 4                ;
+;     -- 4 input functions                    ; 62               ;
+;     -- 3 input functions                    ; 40               ;
+;     -- <=2 input functions                  ; 2                ;
 ;                                             ;                  ;
 ; Logic elements by mode                      ;                  ;
-;     -- normal mode                          ; 106              ;
+;     -- normal mode                          ; 104              ;
 ;     -- arithmetic mode                      ; 0                ;
 ;                                             ;                  ;
 ; Total registers                             ; 6                ;
@@ -200,9 +201,9 @@ agreement for further details.
 ; Embedded Multiplier 9-bit elements          ; 0                ;
 ;                                             ;                  ;
 ; Maximum fan-out node                        ; PRESENT_STAGE[0] ;
-; Maximum fan-out                             ; 42               ;
-; Total fan-out                               ; 437              ;
-; Average fan-out                             ; 2.54             ;
+; Maximum fan-out                             ; 41               ;
+; Total fan-out                               ; 434              ;
+; Average fan-out                             ; 2.55             ;
 +---------------------------------------------+------------------+
 
 
@@ -211,7 +212,7 @@ agreement for further details.
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
-; |CONTROLUNIT               ; 106 (106)           ; 6 (6)                     ; 0           ; 0            ; 0       ; 0         ; 30   ; 0            ; |CONTROLUNIT        ; CONTROLUNIT ; work         ;
+; |CONTROLUNIT               ; 104 (104)           ; 6 (6)                     ; 0           ; 0            ; 0       ; 0         ; 30   ; 0            ; |CONTROLUNIT        ; CONTROLUNIT ; work         ;
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -221,12 +222,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------------------------------------+---------------------+------------------------+
 ; Latch Name                                          ; Latch Enable Signal ; Free of Timing Hazards ;
 +-----------------------------------------------------+---------------------+------------------------+
-; PCINCREMENT$latch                                   ; WideOr0             ; yes                    ;
-; R1INCREMENT$latch                                   ; WideOr0             ; yes                    ;
-; R2INCREMENT$latch                                   ; WideOr0             ; yes                    ;
-; ARINCREMENT$latch                                   ; WideOr0             ; yes                    ;
-; FETCH$latch                                         ; WideOr0             ; yes                    ;
-; FINISH$latch                                        ; WideOr0             ; yes                    ;
+; FLAGS[0]$latch                                      ; WideOr0             ; yes                    ;
+; FLAGS[1]$latch                                      ; WideOr0             ; yes                    ;
+; FLAGS[2]$latch                                      ; WideOr0             ; yes                    ;
+; FLAGS[3]$latch                                      ; WideOr0             ; yes                    ;
+; FLAGS[4]$latch                                      ; WideOr0             ; yes                    ;
+; FLAGS[5]$latch                                      ; WideOr0             ; yes                    ;
 ; FLAGB[0]$latch                                      ; WideOr0             ; yes                    ;
 ; FLAGB[1]$latch                                      ; WideOr0             ; yes                    ;
 ; FLAGB[2]$latch                                      ; WideOr0             ; yes                    ;
@@ -241,12 +242,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; FLAGC[5]$latch                                      ; WideOr0             ; yes                    ;
 ; FLAGC[6]$latch                                      ; WideOr0             ; yes                    ;
 ; FLAGC[7]$latch                                      ; WideOr0             ; yes                    ;
-; NEXT_STAGE[1]                                       ; WideOr0             ; yes                    ;
-; NEXT_STAGE[3]                                       ; WideOr0             ; yes                    ;
 ; NEXT_STAGE[0]                                       ; WideOr0             ; yes                    ;
+; NEXT_STAGE[1]                                       ; WideOr0             ; yes                    ;
 ; NEXT_STAGE[4]                                       ; WideOr0             ; yes                    ;
-; NEXT_STAGE[2]                                       ; WideOr0             ; yes                    ;
+; NEXT_STAGE[3]                                       ; WideOr0             ; yes                    ;
 ; NEXT_STAGE[5]                                       ; WideOr0             ; yes                    ;
+; NEXT_STAGE[2]                                       ; WideOr0             ; yes                    ;
 ; Number of user-specified and inferred latches = 26  ;                     ;                        ;
 +-----------------------------------------------------+---------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
@@ -284,14 +285,14 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; boundary_port         ; 30                          ;
 ; cycloneiii_ff         ; 6                           ;
 ;     plain             ; 6                           ;
-; cycloneiii_lcell_comb ; 106                         ;
-;     normal            ; 106                         ;
-;         2 data inputs ; 4                           ;
-;         3 data inputs ; 41                          ;
-;         4 data inputs ; 61                          ;
+; cycloneiii_lcell_comb ; 104                         ;
+;     normal            ; 104                         ;
+;         2 data inputs ; 2                           ;
+;         3 data inputs ; 40                          ;
+;         4 data inputs ; 62                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 5.00                        ;
-; Average LUT depth     ; 3.22                        ;
+; Average LUT depth     ; 3.20                        ;
 +-----------------------+-----------------------------+
 
 
@@ -310,7 +311,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-    Info: Processing started: Sat May 06 10:40:21 2017
+    Info: Processing started: Mon May 08 12:10:59 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DownSampler -c DownSampler
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -336,116 +337,120 @@ Info (12021): Found 2 design units, including 2 entities, in source file iregist
     Info (12023): Found entity 2: testIREGISTER File: F:/Work/FPGA/Processor-Design/IREGISTER.v Line: 21
 Info (12021): Found 2 design units, including 2 entities, in source file controlunit.v
     Info (12023): Found entity 1: CONTROLUNIT File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 1
-    Info (12023): Found entity 2: testCONTROLUNIT File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 570
+    Info (12023): Found entity 2: testCONTROLUNIT File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 391
 Info (12021): Found 1 design units, including 1 entities, in source file busbmux.v
     Info (12023): Found entity 1: BUSBMUX File: F:/Work/FPGA/Processor-Design/BUSBMUX.v Line: 1
 Info (12021): Found 2 design units, including 2 entities, in source file instructionregister.v
     Info (12023): Found entity 1: INSTRUCTIONREGISTER File: F:/Work/FPGA/Processor-Design/INSTRUCTIONREGISTER.v Line: 1
     Info (12023): Found entity 2: testINSREGISTER File: F:/Work/FPGA/Processor-Design/INSTRUCTIONREGISTER.v Line: 16
+Info (12021): Found 1 design units, including 1 entities, in source file processor.v
+    Info (12023): Found entity 1: PROCESSOR File: F:/Work/FPGA/Processor-Design/PROCESSOR.v Line: 1
 Info (12127): Elaborating entity "CONTROLUNIT" for the top level hierarchy
-Warning (10270): Verilog HDL Case Statement warning at CONTROLUNIT.v(72): incomplete case statement has no default case item File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 72
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "PCINCREMENT", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "R1INCREMENT", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "R2INCREMENT", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "ARINCREMENT", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "FETCH", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "FINISH", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "FLAGB", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "ALU", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "FLAGC", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(71): inferring latch(es) for variable "NEXT_STAGE", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "NEXT_STAGE[0]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "NEXT_STAGE[1]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "NEXT_STAGE[2]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "NEXT_STAGE[3]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "NEXT_STAGE[4]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "NEXT_STAGE[5]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGC[0]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGC[1]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGC[2]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGC[3]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGC[4]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGC[5]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGC[6]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGC[7]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "ALU[0]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "ALU[1]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "ALU[2]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGB[0]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGB[1]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FLAGB[2]" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FINISH" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "FETCH" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "ARINCREMENT" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "R2INCREMENT" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "R1INCREMENT" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Info (10041): Inferred latch for "PCINCREMENT" at CONTROLUNIT.v(71) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-Warning (13012): Latch PCINCREMENT$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[1] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch R1INCREMENT$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch R2INCREMENT$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch ARINCREMENT$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FETCH$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FINISH$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGB[0]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGB[1]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGB[2]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch ALU[0]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[3] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch ALU[1]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch ALU[2]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[1] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGC[0]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[2] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGC[1]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGC[2]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGC[3]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGC[4]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGC[5]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGC[6]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch FLAGC[7]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch NEXT_STAGE[1] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch NEXT_STAGE[3] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch NEXT_STAGE[0] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[3] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch NEXT_STAGE[4] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch NEXT_STAGE[2] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[3] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
-Warning (13012): Latch NEXT_STAGE[5] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 71
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 69
+Warning (10270): Verilog HDL Case Statement warning at CONTROLUNIT.v(68): incomplete case statement has no default case item File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 68
+Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(67): inferring latch(es) for variable "FLAGS", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(67): inferring latch(es) for variable "FLAGB", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(67): inferring latch(es) for variable "ALU", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(67): inferring latch(es) for variable "FLAGC", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Warning (10240): Verilog HDL Always Construct warning at CONTROLUNIT.v(67): inferring latch(es) for variable "NEXT_STAGE", which holds its previous value in one or more paths through the always construct File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "NEXT_STAGE[0]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "NEXT_STAGE[1]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "NEXT_STAGE[2]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "NEXT_STAGE[3]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "NEXT_STAGE[4]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "NEXT_STAGE[5]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGC[0]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGC[1]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGC[2]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGC[3]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGC[4]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGC[5]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGC[6]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGC[7]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "ALU[0]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "ALU[1]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "ALU[2]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGB[0]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGB[1]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGB[2]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGS[0]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGS[1]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGS[2]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGS[3]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGS[4]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Info (10041): Inferred latch for "FLAGS[5]" at CONTROLUNIT.v(67) File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+Warning (13012): Latch FLAGS[0]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGS[1]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGS[2]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGS[3]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGS[4]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGS[5]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[1] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGB[0]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGB[1]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGB[2]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch ALU[0]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[3] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch ALU[1]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch ALU[2]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[1] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGC[0]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[2] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGC[1]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[5] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGC[2]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGC[3]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGC[4]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGC[5]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGC[6]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch FLAGC[7]$latch has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch NEXT_STAGE[0] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[3] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch NEXT_STAGE[1] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch NEXT_STAGE[4] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch NEXT_STAGE[3] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch NEXT_STAGE[5] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[0] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
+Warning (13012): Latch NEXT_STAGE[2] has unsafe behavior File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 67
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal PRESENT_STAGE[3] File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 65
 Info (286030): Timing-Driven Synthesis is running
+Info (144001): Generated suppressed messages file F:/Work/FPGA/Processor-Design/output_files/DownSampler.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
 Warning (21074): Design contains 2 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "IR[6]" File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 5
     Warning (15610): No output dependent on input pin "IR[7]" File: F:/Work/FPGA/Processor-Design/CONTROLUNIT.v Line: 5
-Info (21057): Implemented 142 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 140 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 10 input pins
     Info (21059): Implemented 20 output pins
-    Info (21061): Implemented 112 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 67 warnings
-    Info: Peak virtual memory: 598 megabytes
-    Info: Processing ended: Sat May 06 10:40:34 2017
-    Info: Elapsed time: 00:00:13
+    Info (21061): Implemented 110 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 62 warnings
+    Info: Peak virtual memory: 597 megabytes
+    Info: Processing ended: Mon May 08 12:11:17 2017
+    Info: Elapsed time: 00:00:18
     Info: Total CPU time (on all processors): 00:00:29
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in F:/Work/FPGA/Processor-Design/output_files/DownSampler.map.smsg.
 
 

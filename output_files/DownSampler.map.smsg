@@ -1,1 +1,7 @@
-Warning (10268): Verilog HDL information at UART.v(30): always construct contains both blocking and non-blocking assignments File: F:/Work/FPGA/Processor-Design/UART.v Line: 30
+Info (10281): Verilog HDL Declaration information at PROCESSOR.v(14): object "PC" differs only in case from object "pc" in the same scope File: F:/Work/FPGA/Processor-Design/PROCESSOR.v Line: 14
+Info (10281): Verilog HDL Declaration information at PROCESSOR.v(13): object "IR" differs only in case from object "ir" in the same scope File: F:/Work/FPGA/Processor-Design/PROCESSOR.v Line: 13
+Info (10281): Verilog HDL Declaration information at PROCESSOR.v(14): object "R1" differs only in case from object "r1" in the same scope File: F:/Work/FPGA/Processor-Design/PROCESSOR.v Line: 14
+Info (10281): Verilog HDL Declaration information at PROCESSOR.v(14): object "R2" differs only in case from object "r2" in the same scope File: F:/Work/FPGA/Processor-Design/PROCESSOR.v Line: 14
+Info (10281): Verilog HDL Declaration information at PROCESSOR.v(14): object "TR" differs only in case from object "tr" in the same scope File: F:/Work/FPGA/Processor-Design/PROCESSOR.v Line: 14
+Info (10281): Verilog HDL Declaration information at PROCESSOR.v(14): object "R" differs only in case from object "r" in the same scope File: F:/Work/FPGA/Processor-Design/PROCESSOR.v Line: 14
+Info (10281): Verilog HDL Declaration information at PROCESSOR.v(14): object "AC" differs only in case from object "ac" in the same scope File: F:/Work/FPGA/Processor-Design/PROCESSOR.v Line: 14

@@ -12,19 +12,19 @@
 # 
 # vlog -vlog01compat -work work +incdir+F:/Work/FPGA/Processor-Design {F:/Work/FPGA/Processor-Design/CONTROLUNIT.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 10:38:19 on May 06,2017
+# Start time: 12:22:02 on May 08,2017
 # vlog -reportprogress 300 -vlog01compat -work work "+incdir+F:/Work/FPGA/Processor-Design" F:/Work/FPGA/Processor-Design/CONTROLUNIT.v 
 # -- Compiling module CONTROLUNIT
 # -- Compiling module testCONTROLUNIT
 # 
 # Top level modules:
 # 	testCONTROLUNIT
-# End time: 10:38:19 on May 06,2017, Elapsed time: 0:00:00
+# End time: 12:22:02 on May 08,2017, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 vsim work.testCONTROLUNIT
 # vsim work.testCONTROLUNIT 
-# Start time: 10:38:22 on May 06,2017
+# Start time: 12:22:13 on May 08,2017
 # Loading work.testCONTROLUNIT
 # Loading work.CONTROLUNIT
 add wave -position end  sim:/testCONTROLUNIT/NOP
@@ -32,19 +32,14 @@ add wave -position end  sim:/testCONTROLUNIT/END
 add wave -position end  sim:/testCONTROLUNIT/CLOCK
 add wave -position end  sim:/testCONTROLUNIT/FLAGZ
 add wave -position end  sim:/testCONTROLUNIT/IR
-add wave -position end  sim:/testCONTROLUNIT/PCINCREMENT
-add wave -position end  sim:/testCONTROLUNIT/R1INCREMENT
-add wave -position end  sim:/testCONTROLUNIT/R2INCREMENT
-add wave -position end  sim:/testCONTROLUNIT/ARINCREMENT
-add wave -position end  sim:/testCONTROLUNIT/FETCH
-add wave -position end  sim:/testCONTROLUNIT/FINISH
+add wave -position end  sim:/testCONTROLUNIT/FLAGS
 add wave -position end  sim:/testCONTROLUNIT/FLAGB
 add wave -position end  sim:/testCONTROLUNIT/ALU
 add wave -position end  sim:/testCONTROLUNIT/FLAGC
 run -all
-# ** Note: $finish    : F:/Work/FPGA/Processor-Design/CONTROLUNIT.v(627)
+# ** Note: $finish    : F:/Work/FPGA/Processor-Design/CONTROLUNIT.v(438)
 #    Time: 49 ps  Iteration: 1  Instance: /testCONTROLUNIT
 # 1
-# Break in Module testCONTROLUNIT at F:/Work/FPGA/Processor-Design/CONTROLUNIT.v line 627
-# End time: 10:40:16 on May 06,2017, Elapsed time: 0:01:54
+# Break in Module testCONTROLUNIT at F:/Work/FPGA/Processor-Design/CONTROLUNIT.v line 438
+# End time: 12:23:47 on May 08,2017, Elapsed time: 0:01:34
 # Errors: 0, Warnings: 0
